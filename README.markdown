@@ -6,11 +6,11 @@ Get Google+ user posts as an Atom feed
 
 ## TODO
 
-- Validate feed (http://validator.w3.org/feed/)
 - Properly map post fields
 - Usage documentation
 - Post to Twitter documentation
 - Create feed from express controller
+- Title should not be blank
 
 ## Thanking
 

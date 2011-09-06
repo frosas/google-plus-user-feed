@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <title><%= author %> @ Google+</title>
-    <link rel="alternate" href="<%= profileUrl %>" />
-    <id><%= profileUrl %></id>
-    <author><name><%= author %></name></author>
-    <% posts.forEach(function(post) { %>
-        <entry>
-            <%
-                var summary = post.htmlBody
-                if (! summary.trim().length) summary = post.url
-            %>
-            <title><%= post.title %></title>
-            <summary type="html"><%= summary %></summary>
-            <link rel="alternate" href="<%= post.url %>" />
-        </entry>
-    <% }) %>
-</feed>
+<rss version="2.0">
+    <channel>
+        <title><%= author %> @ Google+</title>
+        <description></description>
+        <link><%= profileUrl %></link>
+        <% posts.forEach(function(post) { %>
+            <item>
+                <%
+                    var description = post.htmlBody
+                    if (! description.trim().length) description = post.url
+                %>
+                <title><%= post.title %></title>
+                <description><%= description %></description>
+                <link><%= post.url %></link>
+                <guid><%= post.url %></guid>
+                <% /* Use format(Date.RFC1123), waiting for https://github.com/andrewplummer/Sugar/pull/26 acceptance */ %>
+                <pubDate><%= post.lastModification.format('{Dow}, {dd} {Mon} {yyyy} {hh}:{mm}:{ss} {tz}')%></pubDate>
+            </item>
+        <% }) %>
+    </channel>
+</rss>
