@@ -2,6 +2,8 @@
 
 Get Google+ user posts as an Atom feed
 
+*http://plusfeed.frosas.net/*
+
 ## TODO
 
 - Validate feed (http://validator.w3.org/feed/)
