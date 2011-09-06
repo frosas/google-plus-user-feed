@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <title><%= author %> @ Google+</title>
+    <link rel="alternate" href="<%= profileUrl %>" />
+    <id><%= profileUrl %></id>
+    <author><name><%= author %></name></author>
+    <% posts.forEach(function(post) { %>
+        <entry>
+            <%
+                var summary = post.htmlBody
+                if (! summary.trim().length) summary = post.url
+            %>
+            <title><%= post.title %></title>
+            <summary type="html"><%= summary %></summary>
+            <link rel="alternate" href="<%= post.url %>" />
+        </entry>
+    <% }) %>
+</feed>
