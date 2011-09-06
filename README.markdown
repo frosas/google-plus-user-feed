@@ -8,6 +8,7 @@ Get Google+ user posts as an Atom feed
 - Properly map post fields
 - Usage documentation
 - Post to Twitter documentation
+- Create feed from express controller
 
 ## Thanking
 
