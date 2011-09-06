@@ -2,7 +2,7 @@
 
 Get Google+ user posts as an Atom feed
 
-*http://plusfeed.frosas.net/*
+**http://plusfeed.frosas.net/**
 
 ## TODO
 
