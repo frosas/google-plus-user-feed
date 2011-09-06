@@ -6,7 +6,7 @@ var googlePlus = require('./lib/google-plus'),
 var app = express.createServer()
 
 var sendError = function(response, error) {
-    response.send(error)
+    response.send(error.message)
 }
 
 app.get('/users/:id/feed', function(request, response) {
