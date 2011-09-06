@@ -5,9 +5,20 @@ var googlePlus = require('./lib/google-plus'),
 
 var app = express.createServer()
 
+app.configure(function() {     
+    app.use(express.static(__dirname + '/public'))
+    app.set('views', __dirname + '/views')
+    app.set('view engine', 'ejs')   
+    app.set('view options', { layout: false })
+})
+
 var sendError = function(response, error) {
     response.send(error.message)
 }
+
+app.get('/', function(request, response) {
+    response.render('home')
+})
 
 app.get('/users/:id/feed', function(request, response) {
     googlePlus.userFeed(request.params.id, function(error, feed) {

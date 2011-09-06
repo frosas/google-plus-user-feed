@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Google+ User Feed</title>
+        <style>
+            body { font: 14px sans-serif }
+            #form-container { overflow: hidden }
+            form { border: 1px solid #d2d2d2; padding: 10px; float: left; background: #f1f1f1 }
+            form input[name='user'] { width: 16em }
+        </style>
+    </head>
+    <body>
+        <h1>Google+ User Feed</h1>
+        <div id="form-container">
+            <form>
+                User id <input name="user" placeholder="Eg, 123456789012345678901" />
+                <input type="submit" value="Get the feed" />
+            </form>
+        </div>
+        <p><a href="https://github.com/frosas/google-plus-user-feed">Source code</a></p>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+        <script>
+            $('form').submit(function() {
+                var userId = $('form input[name=user]').val()
+                if (! isNaN(parseInt(userId))) {
+                    open('users/' + userId + '/feed')
+                } else {
+                    alert("'" + userId + "' is not valid user id")
+                }
+                return false
+            })
+        </script>
+    </body>
+</html>
