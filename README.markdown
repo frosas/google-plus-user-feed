@@ -2,7 +2,7 @@
 
 Get Google+ user posts as a feed
 
-**http://plusfeed.frosas.net/**
+Use it and get more information at **http://plusfeed.frosas.net/**
 
 ## TODO
 
