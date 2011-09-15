@@ -1,6 +1,6 @@
 # Google+ user feed
 
-Get Google+ user posts as an Atom feed
+Get Google+ user posts as a feed
 
 **http://plusfeed.frosas.net/**
 
