@@ -6,11 +6,11 @@ Get Google+ user posts as a feed
 
 ## TODO
 
-- Properly map post fields
 - Usage documentation
-- Post to Twitter documentation
 - Create feed from express controller
-- Title should not be blank
+- What if title is blank?
+- Include post date
+- Include author name
 
 ## Thanking
 

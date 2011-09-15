@@ -28,15 +28,6 @@ app.get('/users/:id/feed', function(request, response) {
     })
 })
 
-// For debugging
-app.get('/users/:id/json', function(request, response) {
-    googlePlus.userJson(request.params.id, function(error, json) {
-        if (error) return sendError(response, error)
-        response.contentType('application/json')
-        response.send(json)
-    })
-})
-
 app.error(function(error, request, response, next) {
     sendError(response, error)
 })
