@@ -13,7 +13,7 @@ app.configure(function() {
 })
 
 var sendError = function(response, error) {
-    response.send(error.message)
+    response.send(error.message, 500)
 }
 
 app.get('/', function(request, response) {
