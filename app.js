@@ -21,7 +21,8 @@ app.get('/', function(request, response) {
 })
 
 app.get('/users/:id/feed', function(request, response) {
-    googlePlus.userFeed(request.params.id, function(error, feed) {
+    var client = new googlePlus.Client(process.env.GOOGLE_API_KEY)
+    client.userFeed(request.params.id, function(error, feed) {
         if (error) return sendError(response, error)
         response.contentType('text/xml')
         response.send(feed)

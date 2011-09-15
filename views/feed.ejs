@@ -4,14 +4,14 @@
         <title>Google+ User Feed</title>
         <description></description>
         <link><%= profileUrl %></link>
-        <% Object.each(posts, function(url, post) { %>
+        <% posts.forEach(function(post) { %>
             <item>
                 <title><%= post.title %></title>
                 <description></description>
-                <link><%= url %></link>
-                <guid><%= url %></guid>
+                <link><%= post.url %></link>
+                <guid><%= post.url %></guid>
                 <% /* Use format(Date.RFC1123), waiting for https://github.com/andrewplummer/Sugar/pull/26 acceptance */ %>
-                <pubDate><%= post.lastModification.format('{Dow}, {dd} {Mon} {yyyy} {hh}:{mm}:{ss} {tz}')%></pubDate>
+                <pubDate><%= post.updated.format('{Dow}, {dd} {Mon} {yyyy} {hh}:{mm}:{ss} {tz}')%></pubDate>
             </item>
         <% }) %>
     </channel>
