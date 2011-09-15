@@ -3,21 +3,36 @@
     <head>
         <title>Google+ User Feed</title>
         <style>
-            body { font: 14px sans-serif }
+            body { font: 14px sans-serif; max-width: 50em }
             #form-container { overflow: hidden }
             form { border: 1px solid #d2d2d2; padding: 10px; float: left; background: #f1f1f1 }
             form input[name='user'] { width: 16em }
         </style>
     </head>
     <body>
-        <h1>Google+ User Feed</h1>
-        <div id="form-container">
-            <form>
-                User id <input name="user" placeholder="Eg, 123456789012345678901" />
-                <input type="submit" value="Get the feed" />
-            </form>
+        <div id="wrapper">
+            <h1>Google+ User Feed</h1>
+
+            <p>This is a simple service to <strong>export your <a href="https://plus.google.com/">Google+</a> activity to other services</strong> like Twitter, Facebook or LinkedIn. In fact it only creates an RSS feed of your public posts so you can use it on other services like <a href="http://twitterfeed.com/">TwitterFeed</a>.</p>
+
+            <h2>Usage</h2>
+
+            <ol>
+                <li>Get your Google+ user id. It's the big number in the URL of <a href="https://plus.google.com/me">your user profile</a></li>
+                <li>Introduce it in the form below and click "Get the feed". A new page will open with your feed</li>
+                <li>Use this feed URL on <a href="http://twitterfeed.com/">TwitterFeed</a> or similar services</li>
+            </ol>
+
+            <div id="form-container">
+                <form>
+                    User id <input name="user" placeholder="Eg, 123456789012345678901" />
+                    <input type="submit" value="Get the feed" />
+                </form>
+            </div>
+
+            <p><a href="https://github.com/frosas/google-plus-user-feed">Source code</a></p>
         </div>
-        <p><a href="https://github.com/frosas/google-plus-user-feed">Source code</a></p>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
         <script>
             $('form').submit(function() {

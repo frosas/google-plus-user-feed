@@ -6,5 +6,4 @@ Get Google+ user posts as a feed
 
 ## TODO
 
-- Usage documentation
 - Create feed from express controller
