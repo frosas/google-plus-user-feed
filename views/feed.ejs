@@ -7,8 +7,6 @@
         <% posts.forEach(function(post) { %>
             <item>
                 <title><%= post.title %></title>
-                <description></description>
-                <link><%= post.url %></link>
                 <guid><%= post.url %></guid>
                 <% /* Use format(Date.RFC1123), waiting for https://github.com/andrewplummer/Sugar/pull/26 acceptance */ %>
                 <pubDate><%= post.updated.format('{Dow}, {dd} {Mon} {yyyy} {hh}:{mm}:{ss} {tz}')%></pubDate>
