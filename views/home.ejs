@@ -27,8 +27,8 @@
 
             <ol>
                 <li>Get your Google+ user id. It's the big number in the URL of <a href="https://plus.google.com/me">your user profile</a></li>
-                <li>Introduce it in the form below and click "Get the feed". A new page will open with the feed</li>
-                <li>Use this feed URL on <a href="http://ifttt.com/">ifttt</a>, <a href="http://twitterfeed.com/">TwitterFeed</a> or similar services. Pro tip: these services check feeds regularly but you can publish new posts immediately by checking it manually.</li>
+                <li>Introduce it in the form below and click "Get the feed"</li>
+                <li>Use the feed URL on <a href="http://ifttt.com/">ifttt</a>, <a href="http://twitterfeed.com/">TwitterFeed</a> or similar services. Pro tip: these services check feeds regularly but you can publish new posts immediately by checking it manually.</li>
             </ol>
 
             <h2>Alternatives</h2>
@@ -46,7 +46,7 @@
             $('form').submit(function() {
                 var userId = $('form input[name=user]').val()
                 if (! isNaN(parseInt(userId))) {
-                    open('users/' + userId + '/feed')
+                    location.href = 'users/' + userId + '/feed'
                 } else {
                     alert("'" + userId + "' is not valid user id")
                 }
