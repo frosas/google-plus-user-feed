@@ -7,3 +7,4 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 ## TODO
 
 - Create feed from express controller
+- Include just first line of post content
