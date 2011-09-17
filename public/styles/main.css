@@ -1,4 +1,6 @@
-body, rss { font: 14px sans-serif; max-width: 50em; margin: 1em }
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+body, rss { font: 14px open sans, sans-serif; max-width: 50em; margin: 1em }
 
 h1, rss channel > title { font-size: 200%; font-weight: bold; display: block }
 
