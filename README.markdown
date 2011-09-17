@@ -8,4 +8,3 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 
 - Create feed from express controller
 - Include just first line of post content (use http://developers.google.com/+/api/latest/activities#object.originalContent, not available right now)
-- Add styling to the feed (a la http://rss2lj.net/g+)
