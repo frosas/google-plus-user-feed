@@ -1,9 +1,5 @@
 # Google+ user feed
 
-Get Google+ user posts as a feed
+Get Google+ user posts as an RSS feed (to export it to Twitter, Facebook, ...)
 
 Use it and get more information at **http://plusfeed.frosas.net/**
-
-## TODO
-
-- Include just first line of post content (use http://developers.google.com/+/api/latest/activities#object.originalContent, not available right now)
