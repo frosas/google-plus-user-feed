@@ -41,7 +41,7 @@
             $('form').submit(function() {
                 var userId = $('form input[name=user]').val()
                 if (! isNaN(parseInt(userId))) {
-                    location.href = 'users/' + userId + '/feed'
+                    location.href = userId
                 } else {
                     alert("'" + userId + "' is not valid user id")
                 }

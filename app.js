@@ -21,13 +21,18 @@ app.get('/', function(request, response) {
     response.render('home')
 })
 
-app.get('/users/:id/feed', function(request, response) {
+app.get('/:id', function(request, response) {
     var client = new googlePlus.Client(process.env.GOOGLE_API_KEY)
     client.userFeed(request.params.id, function(error, feed) {
         if (error) return sendError(response, error)
         response.contentType('text/xml')
         response.send(feed)
     })
+})
+
+// Legacy path
+app.get('/users/:id/feed', function(request, response) {
+    response.redirect('/' + request.params.id, 301)
 })
 
 app.error(function(error, request, response, next) {
