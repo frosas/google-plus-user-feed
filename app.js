@@ -25,10 +25,14 @@ app.get('/:id', function(request, response, next) {
     var userId = request.params.id
     if (! /[0-9]+/.test(userId)) return next()
     var client = new googlePlus.Client(process.env.GOOGLE_API_KEY)
-    client.userFeed(userId, function(error, feed) {
+    client.userPosts(userId, function(error, posts) {
         if (error) return sendError(response, error)
+
         response.contentType('text/xml')
-        response.send(feed)
+        response.render('feed', {
+            profileUrl: 'https://plus.google.com/' + userId,
+            posts: posts
+        })
     })
 })
 
