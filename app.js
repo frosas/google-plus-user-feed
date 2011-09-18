@@ -21,9 +21,11 @@ app.get('/', function(request, response) {
     response.render('home')
 })
 
-app.get('/:id', function(request, response) {
+app.get('/:id', function(request, response, next) {
+    var userId = request.params.id
+    if (! /[0-9]+/.test(userId)) return next()
     var client = new googlePlus.Client(process.env.GOOGLE_API_KEY)
-    client.userFeed(request.params.id, function(error, feed) {
+    client.userFeed(userId, function(error, feed) {
         if (error) return sendError(response, error)
         response.contentType('text/xml')
         response.send(feed)
