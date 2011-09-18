@@ -1,0 +1,14 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+body { font: 13px open sans, sans-serif; max-width: 40em; margin: 1em }
+
+h1 { font-size: 180%; font-weight: bold; display: block }
+
+#form-container { overflow: hidden }
+form { border: 1px solid #d2d2d2; padding: 10px; float: left; background: #f1f1f1 }
+form input[name='user'] { width: 16em }
+
+a.arrow { text-decoration: none }
+
+body.feed ul { margin: 0; padding: 0; list-style: none }
+body.feed li { margin: 1.2em 0 }
