@@ -13,6 +13,7 @@ app.configure(function() {
 })
 
 var sendError = function(response, error) {
+    console.error(error)
     response.send(error.message, 500)
 }
 
