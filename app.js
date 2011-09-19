@@ -27,7 +27,6 @@ app.get('/:id', function(request, response, next) {
     var client = new googlePlus.Client(process.env.GOOGLE_API_KEY)
     client.userPosts(userId, function(error, posts) {
         if (error) return sendError(response, error)
-
         response.contentType('text/xml')
         response.render('feed', {
             profileUrl: 'https://plus.google.com/' + userId,
@@ -39,6 +38,10 @@ app.get('/:id', function(request, response, next) {
 // Legacy path
 app.get('/users/:id/feed', function(request, response) {
     response.redirect('/' + request.params.id, 301)
+})
+
+app.get('/feed.xsl', function(request, response) {
+    response.render('feed-xsl')
 })
 
 app.error(function(error, request, response, next) {
