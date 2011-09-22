@@ -1,7 +1,8 @@
 require('sugar')
 
 var googlePlus = require('./lib/google-plus'),
-    express = require('express')
+    express = require('express'),
+    errors = require('./lib/errors')
 
 var app = express.createServer()
 
@@ -13,8 +14,14 @@ app.configure(function() {
 })
 
 var sendError = function(response, error) {
-    console.error(error)
-    response.send(error.message, 500)
+    response.header('Content-Type', 'text/plain') // response.contentType('text/plain') doesn't work
+    if (error instanceof errors.UserError) {
+        var code = error instanceof errors.NotFoundError ? 404 : 400
+        response.send(error.message, code)
+    } else {
+        console.error(error.message)
+        response.send("Internal error", 500)
+    }
 }
 
 app.get('/', function(request, response) {
@@ -24,8 +31,8 @@ app.get('/', function(request, response) {
 app.get('/:id', function(request, response, next) {
     var userId = request.params.id
     if (! /[0-9]+/.test(userId)) return next()
-    var client = new googlePlus.Client(process.env.GOOGLE_API_KEY)
-    client.userPosts(userId, function(error, posts) {
+    var plus = new googlePlus.GooglePlus(process.env.GOOGLE_API_KEY)
+    plus.userPosts(userId, function(error, posts) {
         if (error) return sendError(response, error)
         response.contentType('text/xml')
         response.render('feed', {
