@@ -1,53 +1,36 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Google+ User Feed</title>
-        <meta name="viewport" content="width=device-width" />
-        <link rel="stylesheet" href="/main.css" />
-        <%- partial('analytics-partial') %>
-    </head>
-    <body>
-        <div id="wrapper">
-            <h1>Google+ User Feed</h1>
+<p>This is a simple service to <strong>export your <a href="https://plus.google.com/">Google+</a> activity to other services</strong> like Twitter, Facebook or LinkedIn.</p>
 
-            <p>This is a simple service to <strong>export your <a href="https://plus.google.com/">Google+</a> activity to other services</strong> like Twitter, Facebook or LinkedIn.</p>
+<div id="form-container">
+    <form>
+        User id <input name="user" placeholder="Eg, 123456789012345678901" />
+        <input type="submit" value="Get the feed" />
+    </form>
+</div>
 
-            <div id="form-container">
-                <form>
-                    User id <input name="user" placeholder="Eg, 123456789012345678901" />
-                    <input type="submit" value="Get the feed" />
-                </form>
-            </div>
+<h2>Usage</h2>
 
-            <h2>Usage</h2>
+<ol>
+    <li>Get your Google+ user id. It's the big number in the URL of <a href="https://plus.google.com/me">your user profile</a></li>
+    <li>Introduce it in the form above, click "Get the feed" and copy the feed URL</li>
+    <li>Use the URL on <a href="http://ifttt.com/">ifttt</a> (<a href="http://ifttt.com/recipes/1362">recipe for Twitter</a>), <a href="http://twitterfeed.com/">TwitterFeed</a> or similar services. Pro tip: these services check feeds regularly but you can publish new posts immediately by checking it manually.</li>
+</ol>
 
-            <ol>
-                <li>Get your Google+ user id. It's the big number in the URL of <a href="https://plus.google.com/me">your user profile</a></li>
-                <li>Introduce it in the form above, click "Get the feed" and copy the feed URL</li>
-                <li>Use the URL on <a href="http://ifttt.com/">ifttt</a> (<a href="http://ifttt.com/recipes/1362">recipe for Twitter</a>), <a href="http://twitterfeed.com/">TwitterFeed</a> or similar services. Pro tip: these services check feeds regularly but you can publish new posts immediately by checking it manually.</li>
-            </ol>
+<h2>Alternatives</h2>
 
-            <h2>Alternatives</h2>
+<ul>
+    <li><a href="http://rss2lj.net/g+">Google+ to RSS</a> by David Mzareulyan</li>
+    <li><a href="http://plusfeed2.appspot.com/">PlusFeed</a> by Russell Beattie and Siegfried Hirsch</li>
+</ul>
 
-            <ul>
-                <li><a href="http://rss2lj.net/g+">Google+ to RSS</a> by David Mzareulyan</li>
-                <li><a href="http://plusfeed2.appspot.com/">PlusFeed</a> by Russell Beattie and Siegfried Hirsch</li>
-            </ul>
-
-            <p><a href="https://github.com/frosas/google-plus-user-feed">Source code</a></p>
-        </div>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
-        <script>
-            $('form').submit(function() {
-                var userId = $('form input[name=user]').val()
-                if (! isNaN(parseInt(userId))) {
-                    location.href = userId
-                } else {
-                    alert("'" + userId + "' is not valid user id")
-                }
-                return false
-            })
-        </script>
-    </body>
-</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<script>
+    $('form').submit(function() {
+        var userId = $('form input[name=user]').val()
+        if (! isNaN(parseInt(userId))) {
+            location.href = userId
+        } else {
+            alert("'" + userId + "' is not valid user id")
+        }
+        return false
+    })
+</script>

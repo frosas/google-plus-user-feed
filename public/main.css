@@ -10,5 +10,9 @@ form input[name='user'] { width: 16em }
 
 a.arrow { text-decoration: none }
 
+footer { border-top: 1px solid #ccc; padding-top: 10px; margin-top: 2em }
+
+/* Feed specific */
+
 body.feed ul { margin: 0; padding: 0; list-style: none }
 body.feed li { margin: 1.2em 0 }

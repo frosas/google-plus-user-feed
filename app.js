@@ -10,7 +10,6 @@ app.configure(function() {
     app.use(express.static(__dirname + '/public'))
     app.set('views', __dirname + '/views')
     app.set('view engine', 'ejs')   
-    app.set('view options', {layout: false})
 })
 
 var sendError = function(response, error) {
@@ -49,6 +48,10 @@ app.get('/users/:id/feed', function(request, response) {
 
 app.get('/feed.xsl', function(request, response) {
     response.render('feed-xsl')
+})
+
+app.get('/privacy-policy', function(request, response) {
+    response.render('privacy-policy')
 })
 
 app.error(function(error, request, response, next) {
