@@ -54,6 +54,10 @@ app.get('/privacy-policy', function(request, response) {
     response.render('privacy-policy')
 })
 
+app.get('/alternatives', function(request, response) {
+    response.render('alternatives')
+})
+
 app.error(function(error, request, response, next) {
     sendError(response, error)
 })
