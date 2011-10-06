@@ -36,7 +36,8 @@ app.get('/:id', function(request, response, next) {
         response.contentType('text/xml')
         response.render('feed', {
             profileUrl: 'https://plus.google.com/' + userId,
-            posts: posts
+            posts: posts,
+            layout: false
         })
     })
 })
@@ -47,7 +48,7 @@ app.get('/users/:id/feed', function(request, response) {
 })
 
 app.get('/feed.xsl', function(request, response) {
-    response.render('feed-xsl')
+    response.render('feed-xsl', {layout: false})
 })
 
 app.get('/privacy-policy', function(request, response) {
