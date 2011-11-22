@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Google+ User Feed</title>
-        <meta name="viewport" content="width=device-width" />
-        <link rel="stylesheet" href="/main.css" />
-        <%- partial('analytics-partial') %>
-    </head>
-    <body>
-        <div id="wrapper">
-            <h1>Google+ User Feed</h1>
 
-            <%- body %>
+<title>Google+ User Feed</title>
 
-            <footer>
-                <a href=".">Home</a> |
-                <a href="alternatives">Alternatives</a> |
-                <a href="https://github.com/frosas/google-plus-user-feed">Source code</a> |
-                <a href="privacy-policy">Privacy policy</a>
-            </footer>
-        </div>
-    </body>
-</html>
+<meta name="viewport" content="width=device-width" />
+<link rel="stylesheet" href="/main.css" />
+
+<%- partial('analytics-partial') %>
+<%- partial('clicktale-top-partial') %>
+
+<div id="wrapper">
+    <h1>Google+ User Feed</h1>
+
+    <%- body %>
+
+    <footer>
+        <a href=".">Home</a> |
+        <a href="alternatives">Alternatives</a> |
+        <a href="https://github.com/frosas/google-plus-user-feed">Source code</a> |
+        <a href="privacy-policy">Privacy policy</a>
+    </footer>
+</div>
+
+<%- partial('clicktale-bottom-partial') %>
