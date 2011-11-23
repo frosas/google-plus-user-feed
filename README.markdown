@@ -10,3 +10,4 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 - Functional testing (home and feed pages)
   - Home
   - Feed. Both good (200) and bad (40x) feeds
+- Combine feed form and instructions
