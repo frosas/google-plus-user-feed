@@ -20,7 +20,7 @@
     $('form').submit(function() {
         var userId = $('form input[name=user]').val()
         if (! isNaN(parseInt(userId))) {
-            location.href = userId
+            open(userId)
         } else {
             alert("'" + userId + "' is not valid user id")
         }
