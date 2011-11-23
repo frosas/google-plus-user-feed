@@ -4,9 +4,7 @@
         <html>
             <head>
                 <title><xsl:value-of select="channel/title" /></title>
-                <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" />
-                <link rel="stylesheet" href="/main.css" />
-                <%- partial('analytics-partial') %>
+                <%- partial('head-partial') %>
             </head>
             <body class="feed">
                 <div class="container">
@@ -38,6 +36,7 @@
                         </xsl:for-each>
                     </table>
                 </div>
+                <%- partial('body-end-partial') %>
             </body>
         </html>
     </xsl:template>
