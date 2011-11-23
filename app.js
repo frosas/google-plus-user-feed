@@ -10,6 +10,7 @@ app.configure(function() {
     app.use(express.static(__dirname + '/public'))
     app.set('views', __dirname + '/views')
     app.set('view engine', 'ejs')   
+    app.set('view options', {layout: false})
 })
 
 var sendError = function(response, error) {
@@ -37,7 +38,6 @@ app.get('/:id', function(request, response, next) {
         response.render('feed', {
             profileUrl: 'https://plus.google.com/' + userId,
             posts: posts,
-            layout: false
         })
     })
 })
@@ -48,15 +48,7 @@ app.get('/users/:id/feed', function(request, response) {
 })
 
 app.get('/feed.xsl', function(request, response) {
-    response.render('feed-xsl', {layout: false})
-})
-
-app.get('/privacy-policy', function(request, response) {
-    response.render('privacy-policy')
-})
-
-app.get('/alternatives', function(request, response) {
-    response.render('alternatives')
+    response.render('feed-xsl')
 })
 
 app.error(function(error, request, response, next) {

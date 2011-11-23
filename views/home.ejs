@@ -1,33 +1,63 @@
-<div class="alert-message block-message info">
-    <p><strong>Export your <a href="https://plus.google.com/">Google+</a> activity to other services</strong> like Twitter, Facebook or LinkedIn.</p>
-</div>
+<!DOCTYPE html>
 
-<ol>
-    <li>Get your Google+ user id. It's the big number in the URL of <a href="https://plus.google.com/me">your user profile</a></li>
-    <li>
-        <p>Enter it in the following form and click "Get the feed".</p>
-        <div id="form-container">
-            <form class="well">
-                User id <input name="user" placeholder="Eg, 123456789012345678901" />
-                <input type="submit" class="btn primary" value="Get the feed" />
-            </form>
-        </div>
-    </li>
-    <li>
-        <p>Use this feed URL on <a href="http://ifttt.com/">ifttt</a> (<a href="http://ifttt.com/recipes/1362">recipe for Twitter</a>), <a href="http://twitterfeed.com/">TwitterFeed</a> or similar services.</p>
-        <p>Pro tip: these services check feeds regularly but you can publish new posts immediately by checking it manually.</p>
-    </li>
-</ol>
+<title>Google+ User Feed</title>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+<%- partial('head-partial') %>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
 <script>
-    $('form').submit(function() {
-        var userId = $('form input[name=user]').val()
-        if (/^[0-9]+$/.test(userId)) {
-            open(userId)
-        } else {
-            alert("'" + userId + "' is not valid user id")
-        }
-        return false
+    $(function() {
+        $('form').submit(function() {
+            var userId = $('form input[name=user]').val()
+            if (/^[0-9]+$/.test(userId)) {
+                open(userId)
+            } else {
+                alert("'" + userId + "' is not valid user id")
+            }
+            return false
+        })
     })
 </script>
+
+<div class="container">
+
+    <h1>Google+ User Feed</h1>
+
+    <div class="alert-message block-message info">
+        <p><strong>Export your <a href="https://plus.google.com/">Google+</a> activity to other services</strong> like Twitter, Facebook or LinkedIn.</p>
+    </div>
+
+    <h2>Instructions</h2>
+
+    <ol>
+        <li>Get your Google+ user id. It's the big number in the URL of <a href="https://plus.google.com/me">your user profile</a>.</li>
+        <li>
+            <p>Enter it in the following form and click "Get the feed".</p>
+            <div id="form-container">
+                <form class="well">
+                    User id <input name="user" placeholder="Eg, 123456789012345678901" />
+                    <input type="submit" class="btn primary" value="Get the feed" />
+                </form>
+            </div>
+        </li>
+        <li>
+            <p>Use this feed URL on <a href="http://ifttt.com/">ifttt</a> (<a href="http://ifttt.com/recipes/1362">recipe for Twitter</a>), <a href="http://twitterfeed.com/">TwitterFeed</a> or similar services.</p>
+            <p>Pro tip: these services check feeds regularly but you can publish new posts immediately by checking it manually.</p>
+        </li>
+    </ol>
+
+    <h2>Alternatives</h2>
+
+    <p>These are some similar services I've found. Check them out if this one is not your taste.</p>
+
+    <ul>
+        <li><a href="http://rss2lj.net/g+">Google+ to RSS</a> by David Mzareulyan</li>
+        <li><a href="http://plusfeed2.appspot.com/">PlusFeed</a> by Russell Beattie and Siegfried Hirsch</li>
+    </ul>
+
+    <h2>Source code and feedback</h2>
+
+    Please visit the <a href="https://github.com/frosas/google-plus-user-feed">GitHub project page</a>.
+</div>
+
+<%- partial('body-end-partial') %>

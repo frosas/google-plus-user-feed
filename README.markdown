@@ -11,4 +11,3 @@ Use it and get more information at **http://plusfeed.frosas.net/**
   - Home and feed
   - Use http://visionmedia.github.com/mocha/
 - Take javascript out of HTML (use require.js)
-- Make it a single page web
