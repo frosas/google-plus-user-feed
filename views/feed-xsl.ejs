@@ -4,7 +4,6 @@
         <html>
             <head>
                 <title><xsl:value-of select="channel/title" /></title>
-                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" />
                 <link rel="stylesheet" href="/main.css" />
                 <%- partial('analytics-partial') %>
@@ -20,7 +19,7 @@
                         </xsl:element>
                     </h1>
                     <div class="alert-message block-message info">
-                        <p>This is an RSS feed. Check <a href="/">instructions</a> for details on how to use it.</p>
+                        <p>This is an RSS feed. Check <a href="/">home</a> page for details on how to use it.</p>
                     </div>
                     <table>
                         <xsl:for-each select="channel/item">
