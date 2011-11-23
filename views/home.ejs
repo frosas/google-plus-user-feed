@@ -23,7 +23,7 @@
 <script>
     $('form').submit(function() {
         var userId = $('form input[name=user]').val()
-        if (! isNaN(parseInt(userId))) {
+        if (/^[0-9]+$/.test(userId)) {
             open(userId)
         } else {
             alert("'" + userId + "' is not valid user id")

@@ -29,7 +29,7 @@ app.get('/', function(request, response) {
 
 app.get('/:id', function(request, response, next) {
     var userId = request.params.id
-    if (! /[0-9]+/.test(userId)) return next()
+    if (! /^[0-9]+$/.test(userId)) return next()
     var plus = new googlePlus.GooglePlus(process.env.GOOGLE_API_KEY)
     plus.userPosts(userId, function(error, posts) {
         if (error) return sendError(response, error)
