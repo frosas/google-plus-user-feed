@@ -4,11 +4,13 @@
         <html>
             <head>
                 <title><xsl:value-of select="channel/title" /></title>
-                <link href="main.css" rel="stylesheet" type="text/css" />
+                <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css" />
+                <link rel="stylesheet" href="/main.css" />
                 <%- partial('analytics-partial') %>
             </head>
             <body class="feed">
-                <div id="wrapper">
+                <div class="container">
                     <h1>
                         <xsl:element name="a">
                             <xsl:attribute name="href">
@@ -17,21 +19,25 @@
                             <xsl:value-of select="channel/title" />
                         </xsl:element>
                     </h1>
-                    <ul>
+                    <div class="alert-message block-message info">
+                        <p>This is an RSS feed. Check <a href="/">instructions</a> for details on how to use it.</p>
+                    </div>
+                    <table>
                         <xsl:for-each select="channel/item">
-                            <li>
-                                <xsl:value-of select="title"/>
-                                &#160;
-                                <xsl:element name="a">
-                                    <xsl:attribute name="class">arrow</xsl:attribute>
-                                    <xsl:attribute name="href">
-                                        <xsl:value-of select="guid"/>
-                                    </xsl:attribute>
-                                    ⇾
-                                </xsl:element>
-                            </li>
+                            <tr>
+                                <td>
+                                    <xsl:value-of select="title"/>
+                                    <xsl:element name="a">
+                                        <xsl:attribute name="title">Permanent link</xsl:attribute>
+                                        <xsl:attribute name="href">
+                                            <xsl:value-of select="guid"/>
+                                        </xsl:attribute>
+                                        &#x1F516;
+                                    </xsl:element>
+                                </td>
+                            </tr>
                         </xsl:for-each>
-                    </ul>
+                    </table>
                 </div>
             </body>
         </html>
