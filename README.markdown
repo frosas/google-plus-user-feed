@@ -11,3 +11,4 @@ Use it and get more information at **http://plusfeed.frosas.net/**
   - Home
   - Feed. Both good (200) and bad (40x) feeds
 - Combine feed form and instructions
+- DRY web and feed HTML code (use partials)
