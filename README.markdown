@@ -7,8 +7,8 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 ## TODO
 
 - Notify me internal errors
-- Functional testing (home and feed pages)
-  - Home
-  - Feed. Both good (200) and bad (40x) feeds
+- Functional testing
+  - Home and feed
+  - Use http://visionmedia.github.com/mocha/
 - Combine feed form and instructions
 - DRY web and feed HTML code (use partials)
