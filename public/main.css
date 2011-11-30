@@ -3,3 +3,8 @@
 #form-container { overflow: hidden }
 #form-container form { float: left }
 #form-container form input[name='user'] { width: 16em }
+
+/* Twitter Bootstrap fixes */
+
+.alert-message a { text-decoration: underline }
+li { color: inherit }
