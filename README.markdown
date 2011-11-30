@@ -13,4 +13,7 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 - Take javascript out of HTML (use require.js)
 - Display errors inline (not as an alert)
 - Include full content into the RSS item body (to consume it as any other RSS feed)
-- Include sample feed
+- Include sample feed?
+- Open links in the same window or a new one?
+- Mark visited links
+- Also accept user profile URL
