@@ -17,3 +17,4 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 - Open links in the same window or a new one?
 - Mark visited links
 - Also accept user profile URL
+- Fast tooltips (browser ones take too much time to appear)
