@@ -10,11 +10,9 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 - Functional testing
   - Home and feed
   - Use http://visionmedia.github.com/mocha/
-- Take javascript out of HTML (use require.js)
+- Take javascript out of HTML (use require.js?)
 - Display errors inline (not as an alert)
 - Include full content into the RSS item body (to consume it as any other RSS feed)
-- Include sample feed?
 - Open links in the same window or a new one?
 - Mark visited links
 - Also accept user profile URL
-- Fast tooltips (browser ones take too much time to appear)
