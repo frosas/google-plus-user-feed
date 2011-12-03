@@ -13,17 +13,6 @@ app.configure(function() {
     app.set('view options', {layout: false})
 })
 
-var sendError = function(response, error) {
-    response.header('Content-Type', 'text/plain') // response.contentType('text/plain') doesn't work
-    if (error instanceof errors.UserError) {
-        var code = error instanceof errors.NotFoundError ? 404 : 400
-        response.send(error.message, code)
-    } else {
-        console.error(error.message)
-        response.send("Internal error", 500)
-    }
-}
-
 app.get('/', function(request, response) {
     response.render('home')
 })
@@ -33,7 +22,7 @@ app.get('/:id', function(request, response, next) {
     if (! /^[0-9]+$/.test(userId)) return next()
     var plus = new googlePlus.GooglePlus(process.env.GOOGLE_API_KEY)
     plus.userPosts(userId, function(error, posts) {
-        if (error) return sendError(response, error)
+        if (error) return next(error)
         response.contentType('text/xml')
         response.render('feed', {
             profileUrl: 'https://plus.google.com/' + userId,
@@ -51,8 +40,19 @@ app.get('/feed.xsl', function(request, response) {
     response.render('feed-xsl')
 })
 
+app.get('/*', function(request, response, next) {
+    next(new errors.NotFoundError)
+})
+
 app.error(function(error, request, response, next) {
-    sendError(response, error)
+    response.header('Content-Type', 'text/plain')
+    if (error instanceof errors.UserError) {
+        var code = error instanceof errors.NotFoundError ? 404 : 400
+        response.send(error.message, code)
+    } else {
+        console.error(error.message)
+        response.send("Internal error", 500)
+    }
 })
 
 app.listen(process.env.PORT || 8080)
