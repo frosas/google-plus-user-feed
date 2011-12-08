@@ -17,3 +17,4 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 - Mark visited links
 - Also accept user profile URL
 - Change example feed (Alireza posts every photo in its own post)
+- Some characters don't appear correctly (eg, &#39; @ http://plusfeed.frosas.net/102067232456938436649)
