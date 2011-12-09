@@ -18,3 +18,4 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 - Also accept user profile URL
 - Change example feed (Alireza posts every photo in its own post)
 - Some characters don't appear correctly (eg, &#39; @ http://plusfeed.frosas.net/102067232456938436649)
+- Anything to learn from https://github.com/jtwebman/GooglePlusToRSSFeed ?
