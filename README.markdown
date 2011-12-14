@@ -17,3 +17,4 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 - Mark visited links
 - Also accept user profile URL
 - Change example feed (Alireza posts every photo in its own post)
+- http://plusfeed.frosas.net/110101110100111001011 (error 500)
