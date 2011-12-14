@@ -1,75 +1,79 @@
 <!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Google+ User Feed</title>
+        <%- partial('head-partial') %>
+    </head>
+    <body>
+        <div class="container">
 
-<title>Google+ User Feed</title>
+            <h1>Google+ User Feed</h1>
 
-<%- partial('head-partial') %>
+            <div class="alert-message block-message info">
+                <p><strong>Export <a href="https://plus.google.com/">Google+</a> user activity to other 
+                    services</strong> like Twitter, Facebook or Google Reader.</p>
+            </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
-<script>
-    $(function() {
-        $('form').submit(function() {
-            var userId = $('form input[name=user]').val()
-            if (/^[0-9]+$/.test(userId)) {
-                open(userId)
-            } else {
-                alert("'" + userId + "' is not valid user id")
-            }
-            return false
-        })
-    })
-</script>
+            <p>Google+ doesn't provide any means to export user posts apart from using its API. This is a 
+                convenience tool that creates an RSS feed so it can be easily integrated with other services. 
+                An <a href="107383157816966336384" target="_blank">example</a> of what you get.</p>
 
-<div class="container">
+            <div class="compact-box">
+                <form id="feed-form" class="well">
+                    User id 
+                    <span class="label help" title="It is the big number in the user profile URL">?</span>
+                    <input name="user" placeholder="Eg, 123456789012345678901" />
+                    <input type="submit" class="btn primary" value="Get the feed" />
+                </form>
+            </div>
 
-    <h1>Google+ User Feed</h1>
+            <h2>Common uses</h2>
 
-    <div class="alert-message block-message info">
-        <p><strong>Export <a href="https://plus.google.com/">Google+</a> user activity to other 
-            services</strong> like Twitter, Facebook or Google Reader.</p>
-    </div>
+            <ul>
+                <li>
+                    <h3>Publish your Google+ activity on other social networks</h3>
+                    <p>There are many services that allow you to publish on Twitter, Facebook or Linkedin 
+                        from an RSS feed. Popular ones are <a href="http://ifttt.com/">ifttt</a> 
+                        (<a href="http://ifttt.com/recipes/1362">recipe for Twitter</a>), 
+                        <a href="http://dlvr.it/">dlvr.it</a> and 
+                        <a href="http://twitterfeed.com/">TwitterFeed</a>.</p>
+                    <p><span class="label">Hint</span> 
+                        <a href="https://plus.google.com/me" target="_blank">This is your profile URL</a></p>
+                    <p><span class="label">Pro tip</span> These services check feeds regularly but if you 
+                        don't want to wait many of them also allow you to check them manually.</p>
+                </li>
+                <li>
+                    <h3><strong>Follow Google+ users from your preferred feed reader</strong></h3>
+                    <p>This is a good option if you are already using a feed reader (like Google Reader), 
+                        follow few users and don't want to open Google+ site to see what's new.</p>
+                    <p>Unfortunately this tool exports a title for every post but not a body, so you 
+                        probably want to use other similar services which do include it like 
+                        <a href="http://rss2lj.net/g+">Google+ to RSS</a> or 
+                        <a href="http://plusfeed2.appspot.com/">PlusFeed</a>.</p>
+                </li>
+            </ul>
 
-    <p>Google+ doesn't provide any means to export user posts apart from using its API. This is a 
-        convenience tool that creates an RSS feed so it can be easily integrated with other services. 
-        An <a href="107383157816966336384" target="_blank">example</a> of what you get.</p>
+            <h2>Source code and feedback</h2>
 
-    <div class="compact-box">
-        <form id="feed-form" class="well">
-            User id 
-            <span class="label help" title="It is the big number in the user profile URL">?</span>
-            <input name="user" placeholder="Eg, 123456789012345678901" />
-            <input type="submit" class="btn primary" value="Get the feed" />
-        </form>
-    </div>
+            <p>Please visit the <a href="https://github.com/frosas/google-plus-user-feed">GitHub project page</a>.</p>
+        </div>
 
-    <h2>Common uses</h2>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+        <script>
+            $(function() {
+                $('form').submit(function() {
+                    var userId = $('form input[name=user]').val()
+                    if (/^[0-9]+$/.test(userId)) {
+                        open(userId)
+                    } else {
+                        alert("'" + userId + "' is not valid user id")
+                    }
+                    return false
+                })
+            })
+        </script>
 
-    <ul>
-        <li>
-            <h3>Publish your Google+ activity on other social networks</h3>
-            <p>There are many services that allow you to publish on Twitter, Facebook or Linkedin 
-                from an RSS feed. Popular ones are <a href="http://ifttt.com/">ifttt</a> 
-                (<a href="http://ifttt.com/recipes/1362">recipe for Twitter</a>), 
-                <a href="http://dlvr.it/">dlvr.it</a> and 
-                <a href="http://twitterfeed.com/">TwitterFeed</a>.</p>
-            <p><span class="label">Hint</span> 
-                <a href="https://plus.google.com/me" target="_blank">This is your profile URL</a></p>
-            <p><span class="label">Pro tip</span> These services check feeds regularly but if you 
-                don't want to wait many of them also allow you to check them manually.</p>
-        </li>
-        <li>
-            <h3><strong>Follow Google+ users from your preferred feed reader</strong></h3>
-            <p>This is a good option if you are already using a feed reader (like Google Reader), 
-                follow few users and don't want to open Google+ site to see what's new.</p>
-            <p>Unfortunately this tool exports a title for every post but not a body, so you 
-                probably want to use other similar services which do include it like 
-                <a href="http://rss2lj.net/g+">Google+ to RSS</a> or 
-                <a href="http://plusfeed2.appspot.com/">PlusFeed</a>.</p>
-        </li>
-    </ul>
-
-    <h2>Source code and feedback</h2>
-
-    <p>Please visit the <a href="https://github.com/frosas/google-plus-user-feed">GitHub project page</a>.</p>
-</div>
-
-<%- partial('body-end-partial') %>
+        <%- partial('body-end-partial') %>
+    </body>
+</html>
