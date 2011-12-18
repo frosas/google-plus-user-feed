@@ -6,7 +6,7 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 
 ## Installation details
 
-- A Google API key has to be set with the GOOGLE_API_KEY environment variable (eg, `$ GOOGLE_API_KEY=xxx node app.js`)
+- A (Google API key)[https://developers.google.com/+/api/oauth] has to be set with the GOOGLE_API_KEY environment variable (eg, `$ GOOGLE_API_KEY=xxx node app.js`)
 - Default port is 8080. You can also set it with the PORT env var.
 
 ## TODO
