@@ -17,3 +17,7 @@ cite { font-style: italic }
 .container { padding: 10px; width: auto; max-width: 60em }
 
 #feed-form input[name='user'] { width: 16em }
+
+body.feed td { padding: 0 }
+body.feed td a { display: block; padding: 10px; text-decoration: none; color: inherit }
+body.feed td a:hover { background: #FDF5D9 }

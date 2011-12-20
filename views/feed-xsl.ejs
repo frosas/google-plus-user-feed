@@ -23,13 +23,11 @@
                         <xsl:for-each select="channel/item">
                             <tr>
                                 <td>
-                                    <xsl:value-of select="title"/>
                                     <xsl:element name="a">
                                         <xsl:attribute name="title">Permanent link</xsl:attribute>
-                                        <xsl:attribute name="href">
-                                            <xsl:value-of select="guid"/>
-                                        </xsl:attribute>
-                                        &#x1F516;
+                                        <xsl:attribute name="href"><xsl:value-of select="guid"/></xsl:attribute>
+                                        <xsl:attribute name="target">_blank</xsl:attribute>
+                                        <xsl:value-of select="title"/>
                                     </xsl:element>
                                 </td>
                             </tr>
