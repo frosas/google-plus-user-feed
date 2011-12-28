@@ -25,3 +25,4 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 - http://plusfeed.frosas.net/110101110100111001011 (error 500)
 - Some characters don't appear correctly (eg, &#39; @ http://plusfeed.frosas.net/102067232456938436649)
 - Anything to learn from https://github.com/jtwebman/GooglePlusToRSSFeed ?
+- Convert G+ user references to Twitter ones
