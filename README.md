@@ -11,7 +11,9 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 
 ## TODO
 
-- Notify me internal errors (use https://github.com/eleith/emailjs)
+- Notify me internal errors
+  - By mail (https://github.com/eleith/emailjs)
+  - By Loggly's Alert Birds
 - Functional testing
   - Home and feed
   - Use http://visionmedia.github.com/mocha/
