@@ -19,7 +19,6 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 - Include full content into the RSS item body (to consume it as any other RSS feed)
 - Mark visited links
 - Also accept user profile URL
-- Change example feed (Alireza posts every photo in its own post)
 - http://plusfeed.frosas.net/110101110100111001011 (error 500, "Backend Error" -> Google error)
 - Some characters don't appear correctly (eg, &#39; @ http://plusfeed.frosas.net/102067232456938436649)
 - Anything to learn from https://github.com/jtwebman/GooglePlusToRSSFeed ?
