@@ -29,3 +29,4 @@ Use it and get more information at **http://plusfeed.frosas.net/**
     - Include the activity type (link, image, video, ...)
     - Cut title
     - Include hashtags in RSS item content (to filter by them)
+    - Use only the first line of activity content as title
