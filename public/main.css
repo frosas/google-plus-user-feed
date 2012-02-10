@@ -1,9 +1,8 @@
 /* Twitter Bootstrap fixes */
 
-.alert-message a { text-decoration: underline }
-li { color: inherit }
+.alert a { text-decoration: underline }
 
-/* More universal styling */
+/* Universal styling */
 
 cite { font-style: italic }
 
@@ -15,6 +14,8 @@ cite { font-style: italic }
 /* Site specific */
 
 .container { padding: 10px; width: auto; max-width: 60em }
+
+h1 { margin-bottom: 10px }
 
 #feed-form input[name='user'] { width: 16em }
 
