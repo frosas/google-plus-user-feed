@@ -19,6 +19,5 @@ h1 { margin-bottom: 10px }
 
 #feed-form input[name='user'] { width: 16em }
 
-body.feed td { padding: 0 }
-body.feed td a { display: block; padding: 10px; text-decoration: none; color: inherit }
-body.feed td a:hover { background: #FDF5D9 }
+body.feed .items > div a { display: block; padding: 10px; text-decoration: none; color: inherit }
+body.feed .items > div a:hover { background: #FDF5D9 }
