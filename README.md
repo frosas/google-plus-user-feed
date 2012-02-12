@@ -30,3 +30,5 @@ Use it and get more information at **http://plusfeed.frosas.net/**
     - Cut title
     - Include hashtags in RSS item content (to filter by them)
     - Use only the first line of activity content as title
+- http://plusfeed.frosas.net/113946693980366737813 doesn't show anything
+- Checkins appear empty (e.g. http://plusfeed.frosas.net/110318982509514011806)
