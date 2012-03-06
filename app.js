@@ -51,7 +51,7 @@ app.error(function(error, request, response, next) {
         response.send(error.message, code)
     } else {
         console.error(error.message)
-        response.send("Internal error", 500)
+        response.send(error.publicMessage || "Internal Error", 500)
     }
 })
 
