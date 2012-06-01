@@ -8,7 +8,7 @@
     },
     "dependencies": {
         "sugar": "x",
-        "express": "2.4.x",
+        "express": "2.5.x",
         "ejs": "0.4.x",
         "jsdom": "0.2.x",
         "request": "2.9.x"
