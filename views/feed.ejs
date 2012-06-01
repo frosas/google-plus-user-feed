@@ -11,8 +11,7 @@
                 <title><%= post.title %></title>
                 <link><%= post.url %></link>
                 <guid><%= post.url %></guid>
-                <% /* Use format(Date.RFC1123), waiting for https://github.com/andrewplummer/Sugar/pull/26 acceptance */ %>
-                <pubDate><%= post.updated.format('{Dow}, {dd} {Mon} {yyyy} {hh}:{mm}:{ss} {tz}')%></pubDate>
+                <pubDate><%= post.updated.format(Date.RFC1123)%></pubDate>
             </item>
         <% }) %>
     </channel>
