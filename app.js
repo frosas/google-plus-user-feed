@@ -31,11 +31,6 @@ app.get('/:id', function(request, response, next) {
     })
 })
 
-// Legacy path
-app.get('/users/:id/feed', function(request, response) {
-    response.redirect('/' + request.params.id, 301)
-})
-
 app.get('/feed.xsl', function(request, response) {
     response.render('feed-xsl')
 })
