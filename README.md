@@ -4,7 +4,9 @@ Get Google+ user posts as an RSS feed
 
 This is my customized version specifically for use with my [If This Then That WordPress autopost recipe](https://ifttt.com/myrecipes/personal/3282469/share), YMMV.
 
-The original is at **http://plusfeed.frosas.net/**
+Example output is viewable on my public feed available at [plusrss.metta.me](http://plusrss.metta.me).
+
+Example results from the IFTTT recipe are in my [Asides category on PositivelyGlorious!](http://positivelyglorious.com/category/asides/)
 
 ## Installation details
 
