@@ -10,6 +10,7 @@
             <item>
                 <title><%= post.title %></title>
                 <link><%= post.url %></link>
+                <description><%= post.body %></description>
                 <guid><%= post.url %></guid>
                 <pubDate><%= post.updated.format(Date.RFC1123)%></pubDate>
             </item>
