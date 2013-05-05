@@ -14,20 +14,7 @@ app.configure(function() {
 })
 
 app.get('/', function(request, response) {
-    if (process.env.GOOGLE_PROFILE) {
-        var userId = process.env.GOOGLE_PROFILE
-        if (! /^[0-9]+$/.test(userId)) return next()
-        var plus = new googlePlus.GooglePlus(process.env.GOOGLE_API_KEY)
-        plus.userPosts(userId, function(error, posts) {
-            if (error) return next(error)
-            response.contentType('text/xml')
-            response.render('feed', {
-                profileUrl: 'https://plus.google.com/' + userId,
-                posts: posts
-            })
-        })
-    }
-    else response.render('home')
+    response.render('home')
 })
 
 app.get('/:id', function(request, response, next) {
