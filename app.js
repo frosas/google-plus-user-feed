@@ -21,10 +21,7 @@ app.get('/:id', function(request, response, next) {
     var userId = request.params.id
     if (! /^[0-9]+$/.test(userId)) return next()
     var plus = new googlePlus.GooglePlus(process.env.GOOGLE_API_KEY)
-    var styles = {
-        title: request.query.title || 'cut'
-    }
-    plus.userPosts(userId, styles, function(error, posts) {
+    plus.userPosts(userId, function(error, posts) {
         if (error) return next(error)
         response.contentType('text/xml')
         response.render('feed', {

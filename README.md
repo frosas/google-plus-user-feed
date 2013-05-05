@@ -11,13 +11,6 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 - `$ GOOGLE_API_KEY=xxx node app.js` (see [Google API key](https://developers.google.com/+/api/oauth))
 - Visit [http://localhost:8080/](http://localhost:8080/)
 
-## MettaCustomizations
-
-- Full-text RSS content using <content:encoded>
-- First sentence as title
-- Hashtags included at end of title if they are not already in there
-- Automatic loading of a default feed if GOOGLE_PROFILE environment variable is present.
-
 ## TODO
 
 - Notify me internal errors
