@@ -20,7 +20,6 @@ Use it and get more information at **http://plusfeed.frosas.net/**
    - Home and feed
    - Use http://visionmedia.github.com/mocha/
 - Display errors inline (not as an alert)
-- Include full content into the RSS item body (to consume it as any other RSS feed)
 - Mark visited links
 - Also accept user profile URL
 - http://plusfeed.frosas.net/110101110100111001011 (error 500, "Backend Error" -> Google error)
