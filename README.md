@@ -8,7 +8,7 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 
 2013-06-12
 
-- Added posts content (thanks to @johnmetta)
+- Added posts content (thanks to [https://github.com/johnmetta](John Metta))
 
 ## Installation details
 
