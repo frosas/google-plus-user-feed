@@ -4,6 +4,12 @@ Get Google+ user posts as an RSS feed (to export it to Twitter, Facebook, ...)
 
 Use it and get more information at **http://plusfeed.frosas.net/**
 
+## Changelog
+
+2013-06-12
+
+- Added posts content (thanks to @johnmetta)
+
 ## Installation details
 
 - Get [Node.js](http://nodejs.org/)
