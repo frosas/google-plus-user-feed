@@ -11,6 +11,10 @@ app.configure(function() {
     app.set('views', __dirname + '/../views')
     app.set('view engine', 'ejs')   
     app.set('view options', {layout: false})
+    app.use(function(request, response, next) {
+        response.header('Cache-Control', 'max-age=0')
+        next()
+    })
 })
 
 app.get('/', function(request, response) {
@@ -26,7 +30,8 @@ app.get('/:id', function(request, response, next) {
     }
     plus.userPosts(userId, styles, function(error, posts) {
         if (error) return next(error)
-        response.contentType('text/xml')
+        response.header('Content-Type', 'text/xml')
+        response.header('Cache-Control', 'max-age=' + 20 * 60)
         response.render('feed', {
             profileUrl: 'https://plus.google.com/' + userId,
             posts: posts,
