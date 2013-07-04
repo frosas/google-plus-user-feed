@@ -1,14 +1,14 @@
 require('sugar')
 
-var googlePlus = require('./lib/google-plus'),
+var googlePlus = require('./google-plus'),
     express = require('express'),
-    errors = require('./lib/errors')
+    errors = require('./errors')
 
 var app = express.createServer()
 
 app.configure(function() {     
-    app.use(express.static(__dirname + '/public'))
-    app.set('views', __dirname + '/views')
+    app.use(express.static(__dirname + '/../public'))
+    app.set('views', __dirname + '/../views')
     app.set('view engine', 'ejs')   
     app.set('view options', {layout: false})
 })
