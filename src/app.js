@@ -30,7 +30,7 @@ app.get('/:id', function(request, response, next) {
     }
     plus.userPosts(userId, styles, function(error, posts) {
         if (error) return next(error)
-        response.header('Content-Type', 'text/xml')
+        response.header('Content-Type', 'text/xml; charset=utf-8')
         response.header('Cache-Control', 'max-age=' + 60 * 60)
         response.render('feed', {
             profileUrl: 'https://plus.google.com/' + userId,
@@ -48,7 +48,7 @@ app.get('/*', function(request, response, next) {
 })
 
 app.error(function(error, request, response, next) {
-    response.header('Content-Type', 'text/plain')
+    response.header('Content-Type', 'text/plain; charset=utf-8')
     if (error instanceof errors.UserError) {
         var code = error instanceof errors.NotFoundError ? 404 : 400
         response.send(error.message, code)
