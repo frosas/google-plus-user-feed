@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <?xml-stylesheet type="text/xsl" href="/feed.xsl" ?>
 <?xml-stylesheet type="text/css" href="/main.css" ?>
-<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" >
+<rss version="2.0">
     <channel>
         <title><%= posts.length ? posts[0].author + " @ Google+" : "Google+ User Feed" %></title>
         <description></description>
@@ -10,7 +10,7 @@
             <item>
                 <title><%= post.title %></title>
                 <link><%= post.url %></link>
-                <content:encoded><%= post.content %></content:encoded>
+                <description><%= post.content %></description>
                 <guid><%= post.url %></guid>
                 <pubDate><%= post.updated.format(Date.RFC1123)%></pubDate>
             </item>
