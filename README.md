@@ -19,7 +19,7 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 
 ## TODO
 
-- Notify me internal errors
+- Alert of internal errors
   - By mail (https://github.com/eleith/emailjs)
   - By Loggly's Alert Birds
 - Functional testing
@@ -27,11 +27,12 @@ Use it and get more information at **http://plusfeed.frosas.net/**
    - Use http://visionmedia.github.com/mocha/
 - Display errors inline (not as an alert)
 - Mark visited links
-- Also accept user profile URL
-- Anything to learn from https://github.com/jtwebman/GooglePlusToRSSFeed ?
+- Accept whole user profile URLs (instead of only the id)
+- Anything to learn from https://github.com/jtwebman/GooglePlusToRSSFeed?
 - Transformations (make all of them optional?)
     - G+ user references to Twitter ones
     - Include the activity type (link, image, video, ...)
     - Cut title
     - Include hashtags in RSS item content (to filter by them)
     - Use only the first line of activity content as title
+- Allow users to use their own API key, and disable any caching if they do.
