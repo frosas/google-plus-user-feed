@@ -41,34 +41,25 @@ exports.GooglePlus = function(apiKey) {
 }
 
 var formatBody = function(item) {
+    var body = item.annotation || item.object.content || item.title || item.object.title || ''
+    body = '<p>' + body + '</p>'
 
     if (item.object.attachments) {
         var type = (function() {
             if (item.object.attachments[0].objectType === 'article') {
-                return formatLink(item.object.attachments[0]);
+                return formatLink(item.object.attachments[0])
             }
             if (item.object.attachments[0].objectType === 'photo') {
-                return formatPhoto(item.object.attachments[0]);
+                return formatPhoto(item.object.attachments[0])
             }
             if (item.object.attachments[0].objectType === 'video') {
-                return formatVideo(item.object.attachments[0]);
+                return formatVideo(item.object.attachments[0])
             }
         })()
-        if (type) var type = '<div>' + type + '</div>';
+        if (type) type = '<div>' + type + '</div>'
     }
 
-    var body = (function() {
-        if (item.annotation) return '<p>' + item.annotation + '</p>';
-        else if (item.object.content) return '<p>' + item.object.content + '</p>';
-        else if (item.title) return '<p>' + item.title + '</p>';
-        else if (item.object.title) return '<p>' + item.object.title + '</p>';
-        return " ";
-        })()
-
-    if (type) {
-        body = body + type;
-    }
-    return body;
+    return body + type;
 }
 
 var firstSentence = function(string) {
