@@ -14,7 +14,7 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 
 - Get [Node.js](http://nodejs.org/)
 - `$ npm install`
-- `$ GOOGLE_API_KEY=xxx node app.js` (see [Google API key](https://developers.google.com/+/api/oauth))
+- `$ GOOGLE_API_KEY=xxx node src/app.js` (see [Google API key](https://developers.google.com/+/api/oauth))
 - Visit [http://localhost:8080/](http://localhost:8080/)
 
 ## TODO
