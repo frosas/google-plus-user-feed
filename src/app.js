@@ -31,7 +31,7 @@ app.get('/:id', function(request, response, next) {
     plus.userPosts(userId, styles, function(error, posts) {
         if (error) return next(error)
         response.header('Content-Type', 'text/xml; charset=utf-8')
-        response.header('Cache-Control', 'max-age=' + 70 * 60)
+        response.header('Cache-Control', 'max-age=' + 80 * 60)
         response.render('feed', {
             profileUrl: 'https://plus.google.com/' + userId,
             posts: posts,
