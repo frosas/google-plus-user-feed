@@ -5,7 +5,7 @@ var googlePlus = require('./google-plus'),
     errors = require('./errors'),
     connect = require('connect')
 
-var app = express.createServer()
+var app = express()
 
 app.configure(function() {     
     app.use(express.static(__dirname + '/../public'))
@@ -49,7 +49,7 @@ app.get('/*', function(request, response, next) {
     next(new errors.NotFoundError)
 })
 
-app.error(function(error, request, response, next) {
+app.use(function(error, request, response, next) {
     response.header('Content-Type', 'text/plain; charset=utf-8')
     if (error instanceof errors.UserError) {
         var code = error instanceof errors.NotFoundError ? 404 : 400

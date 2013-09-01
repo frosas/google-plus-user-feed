@@ -4,7 +4,7 @@
         <html>
             <head>
                 <title><xsl:value-of select="channel/title" /></title>
-                <%- partial('head-partial') %>
+                <% include head-partial.ejs %>
             </head>
             <body class="feed">
                 <div class="container">
