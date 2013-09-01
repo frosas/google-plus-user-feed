@@ -2,7 +2,8 @@ require('sugar')
 
 var googlePlus = require('./google-plus'),
     express = require('express'),
-    errors = require('./errors')
+    errors = require('./errors'),
+    connect = require('connect')
 
 var app = express.createServer()
 
@@ -11,6 +12,7 @@ app.configure(function() {
     app.set('views', __dirname + '/../views')
     app.set('view engine', 'ejs')   
     app.set('view options', {layout: false})
+    app.use(connect.compress());
     app.use(function(request, response, next) {
         response.header('Cache-Control', 'max-age=0')
         next()
