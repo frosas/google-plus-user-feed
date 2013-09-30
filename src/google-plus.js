@@ -44,8 +44,9 @@ var formatBody = function(item) {
     var body = item.annotation || item.object.content || item.title || item.object.title || ''
     body = '<p>' + body + '</p>'
 
+    var type = ''
     if (item.object.attachments) {
-        var type = (function() {
+        type = (function() {
             if (item.object.attachments[0].objectType === 'article') {
                 return formatLink(item.object.attachments[0])
             }
