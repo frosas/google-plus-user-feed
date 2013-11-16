@@ -30,10 +30,24 @@ app.get('/:id', function(request, response, next) {
     var styles = {
         title: request.query.title || 'cut'
     }
+
+    /**
+     * @returns {number} In seconds
+     */
+    var getLapseSinceLastUpdate = function(posts) {
+        return posts.length ? Math.round((new Date - posts[0].updated) / 1000) : Infinity
+    }
+
+    var getCacheMaxAge = function(posts) {
+        var minAge = 10 /* mins */ * 60
+        var maxAge = 120 /* mins */ * 60
+        return Math.max(minAge, Math.min(maxAge, getLapseSinceLastUpdate(posts)))
+    }
+
     plus.userPosts(userId, styles, function(error, posts) {
         if (error) return next(error)
         response.header('Content-Type', 'text/xml; charset=utf-8')
-        response.header('Cache-Control', 'max-age=' + 2.5 * 60 * 60)
+        response.header('Cache-Control', 'max-age=' + getCacheMaxAge(posts))
         response.render('feed', {
             profileUrl: 'https://plus.google.com/' + userId,
             posts: posts,
