@@ -39,7 +39,7 @@ app.get('/:id', function(request, response, next) {
     }
 
     var getCacheMaxAge = function(posts) {
-        var minAge = 30 /* mins */ * 60
+        var minAge = 40 /* mins */ * 60
         var maxAge = 3 /* hours */ * 60 * 60
         return Math.max(minAge, Math.min(maxAge, getLapseSinceLastUpdate(posts)))
     }
