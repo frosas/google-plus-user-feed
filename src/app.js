@@ -28,9 +28,7 @@ app.get('/:id', function(request, response, next) {
     var userId = request.params.id
     if (! /^[0-9]+$/.test(userId)) return next()
     var plus = new googlePlus.GooglePlus(process.env.GOOGLE_API_KEY)
-    var styles = {
-        title: request.query.title || 'cut'
-    }
+    var style = {title: request.query.title || 'cut'}
 
     /**
      * @returns {number} In seconds
@@ -45,7 +43,7 @@ app.get('/:id', function(request, response, next) {
         return Math.max(minAge, Math.min(maxAge, getLapseSinceLastUpdate(posts)))
     }
 
-    plus.userPosts(userId, styles, function(error, posts) {
+    plus.userPosts(userId, style, function(error, posts) {
         if (error) return next(error)
         response.header('Content-Type', 'text/xml; charset=utf-8')
         response.header('Cache-Control', 'max-age=' + getCacheMaxAge(posts))
