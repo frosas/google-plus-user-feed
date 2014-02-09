@@ -2,27 +2,40 @@
 
 var GooglePlus = require('../GooglePlus')
 var Post = require('../Post')
+var _ = require('lodash')
 
-/**
- * @returns {number} In seconds
- */
-var getLapseSinceLastUpdate = function(posts) {
-    return posts.length ? Math.round((new Date - posts[0].updated) / 1000) : Infinity
-}
-
-var getMaxAge = function(posts) {
-    var minAge = 40 /* mins */ * 60
-    var maxAge = 3 /* hours */ * 60 * 60
-    return Math.max(minAge, Math.min(maxAge, getLapseSinceLastUpdate(posts)))
-}
-
-var getExpirationDate = function(posts) {
-    return new Date(Date.now() - getMaxAge(posts) * 1000)
-}
+var googlePlusRequestsMonthlyLimit = 50000
+var month = 30 /* days */ * 24 * 60 * 60 * 1000
 
 var Items = function(apiKey) {
     this._plus = new GooglePlus(apiKey)
-    this._itemsByUser = []
+    this._itemsByUser = {}
+
+    Object.defineProperty(this, 'monthlyUsersCount', {
+        get: function() {
+            return _.map(this._itemsByUser)
+                .filter(function(userItems) {
+                    return userItems.date > new Date(Date.now() - 1 * month)
+                })
+                .length
+        }
+    })
+
+    Object.defineProperty(this, 'maxRequestsPerUserAndMonth', {
+        get: function() { 
+            return googlePlusRequestsMonthlyLimit / this.monthlyUsersCount 
+        }
+    })
+
+    Object.defineProperty(this, 'cacheAgePerUser', {
+        get: function() { 
+            return 1 * month / this.maxRequestsPerUserAndMonth 
+        }
+    })
+
+    Object.defineProperty(this, 'expirationDate', {
+        get: function() { return new Date(Date.now() - this.cacheAgePerUser) }
+    })
 }
 
 Items.prototype.get = function(userId, callback) {
@@ -46,10 +59,8 @@ Items.prototype._setCached = function(userId, items) {
 Items.prototype._getCached = function(userId) {
     var userItems = this._itemsByUser[userId]
     if (!userItems) return
-    var items = userItems.items
-    var posts = items.map(function(item) { return new Post(item) })
-    if (userItems.date < getExpirationDate(posts)) return
-    return items
+    if (userItems.date < this.expirationDate) return
+    return userItems.items
 }
 
 module.exports = Items
