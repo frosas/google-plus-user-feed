@@ -3,6 +3,8 @@
 var misc = require('./misc')
 
 module.exports = function(rawItem, style) {
+    style = style || {}
+    style.title = style.title || 'cut'
     this.url = rawItem.url
     this.title = postTitle(rawItem, style.title)
     this.content = body(rawItem)

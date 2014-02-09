@@ -1,13 +1,14 @@
 require('newrelic')
 require('sugar')
 
-var GooglePlus = require('./GooglePlus'),
+var CachedUserItems = require('./GooglePlus/CachedUserItems'),
     express = require('express'),
     errors = require('./errors'),
     connect = require('connect'),
     Post = require('./Post')
 
 var app = express()
+var cachedUserItems = new CachedUserItems(process.env.GOOGLE_API_KEY)
 
 app.configure(function() {     
     app.use(express.static(__dirname + '/../public'))
@@ -28,27 +29,11 @@ app.get('/', function(request, response) {
 app.get('/:id', function(request, response, next) {
     var userId = request.params.id
     if (! /^[0-9]+$/.test(userId)) return next()
-    var plus = new GooglePlus(process.env.GOOGLE_API_KEY)
-    var style = {title: request.query.title || 'cut'}
-
-    /**
-     * @returns {number} In seconds
-     */
-    var getLapseSinceLastUpdate = function(posts) {
-        return posts.length ? Math.round((new Date - posts[0].updated) / 1000) : Infinity
-    }
-
-    var getCacheMaxAge = function(posts) {
-        var minAge = 40 /* mins */ * 60
-        var maxAge = 3 /* hours */ * 60 * 60
-        return Math.max(minAge, Math.min(maxAge, getLapseSinceLastUpdate(posts)))
-    }
-
-    plus.userItems(userId, function(error, items) {
+    var style = {title: request.query.title}
+    cachedUserItems.get(userId, function(error, items) {
         if (error) return next(error)
         var posts = items.map(function(item) { return new Post(item, style) })
         response.header('Content-Type', 'text/xml; charset=utf-8')
-        response.header('Cache-Control', 'max-age=' + getCacheMaxAge(posts))
         response.render('feed', {
             profileUrl: 'https://plus.google.com/' + userId,
             posts: posts
