@@ -22,19 +22,15 @@ exports.GooglePlus = function(apiKey) {
                     }()
                     return callback(new errorType("[Google+ error] " + json.error.message))
                 }
-                var posts = []
-                if (json.items) {
-                    json.items.each(function(item) {
-                        posts.push({
-                            url: item.url,
-                            title: postTitle(item, styles.title),
-                            content: formatBody(item),
-                            updated: new Date(item.updated),
-                            author: item.actor.displayName
-                        })
-                    })
-                }
-                callback(null, posts)
+                callback(null, (json.items || []).map(function(item) {
+                    return {
+                        url: item.url,
+                        title: postTitle(item, styles.title),
+                        content: formatBody(item),
+                        updated: new Date(item.updated),
+                        author: item.actor.displayName
+                    }
+                }))
             })
         }
     }
