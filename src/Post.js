@@ -1,6 +1,6 @@
 'use strict'
 
-var misc = require('../misc')
+var misc = require('./misc')
 
 module.exports = function(rawItem, style) {
     this.url = rawItem.url

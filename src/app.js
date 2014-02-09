@@ -1,10 +1,11 @@
 require('newrelic')
 require('sugar')
 
-var googlePlus = require('./google-plus'),
+var GooglePlus = require('./GooglePlus'),
     express = require('express'),
     errors = require('./errors'),
-    connect = require('connect')
+    connect = require('connect'),
+    Post = require('./Post')
 
 var app = express()
 
@@ -27,7 +28,7 @@ app.get('/', function(request, response) {
 app.get('/:id', function(request, response, next) {
     var userId = request.params.id
     if (! /^[0-9]+$/.test(userId)) return next()
-    var plus = new googlePlus.GooglePlus(process.env.GOOGLE_API_KEY)
+    var plus = new GooglePlus(process.env.GOOGLE_API_KEY)
     var style = {title: request.query.title || 'cut'}
 
     /**
@@ -43,13 +44,14 @@ app.get('/:id', function(request, response, next) {
         return Math.max(minAge, Math.min(maxAge, getLapseSinceLastUpdate(posts)))
     }
 
-    plus.userPosts(userId, style, function(error, posts) {
+    plus.userItems(userId, function(error, items) {
         if (error) return next(error)
+        var posts = items.map(function(item) { return new Post(item, style) })
         response.header('Content-Type', 'text/xml; charset=utf-8')
         response.header('Cache-Control', 'max-age=' + getCacheMaxAge(posts))
         response.render('feed', {
             profileUrl: 'https://plus.google.com/' + userId,
-            posts: posts,
+            posts: posts
         })
     })
 })
