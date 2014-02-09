@@ -15,11 +15,22 @@ var Items = function(apiKey) {
 
     Object.defineProperty(this, 'monthlyUsersCount', {
         get: function() {
-            return _.map(this._itemsByUser)
+            var firstUserActivityDate = _.map(this._itemsByUser)
+                .reduce(function(date, nextUserItems) {
+                    return new Date(Math.min(date.getTime(), nextUserItems.date.getTime()))
+                }, new Date)
+
+            var knownUserActivityPeriod = new Date - firstUserActivityDate
+
+            var monthlyUsersCountExtrapolationMultiplier = Math.max(1, 1 * month / knownUserActivityPeriod)
+
+            var knownMonthlyUsersCount = _.map(this._itemsByUser)
                 .filter(function(userItems) {
                     return userItems.date > new Date(Date.now() - 1 * month)
                 })
                 .length
+
+            return knownMonthlyUsersCount * monthlyUsersCountExtrapolationMultiplier
         }
     })
 
