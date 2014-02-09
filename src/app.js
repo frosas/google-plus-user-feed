@@ -1,3 +1,4 @@
+require('newrelic')
 require('sugar')
 
 var googlePlus = require('./google-plus'),

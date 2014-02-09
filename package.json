@@ -1,18 +1,18 @@
 {
-    "name": "google-plus-feed",
-    "version": "1.0.0",
-    "main": "app.js",
-    "engines": {
-        "node": "0.8.x",
-        "npm": "1.2.x"
-    },
-    "dependencies": {
-        "sugar": "x",
-        "express": "3.3.x",
-        "connect" : "2.8.x",
-        "ejs": "0.8.x",
-        "jsdom": "0.2.x",
-        "request": "2.9.x"
-    }
+  "name": "google-plus-feed",
+  "version": "1.0.0",
+  "main": "app.js",
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.2.x"
+  },
+  "dependencies": {
+    "sugar": "x",
+    "express": "3.3.x",
+    "connect": "2.8.x",
+    "ejs": "0.8.x",
+    "jsdom": "0.2.x",
+    "request": "2.9.x",
+    "newrelic": "~1.3.1"
+  }
 }
-
