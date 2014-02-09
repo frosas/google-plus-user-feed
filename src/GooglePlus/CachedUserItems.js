@@ -48,7 +48,6 @@ Items.prototype._getCached = function(userId) {
     if (!userItems) return
     var items = userItems.items
     var posts = items.map(function(item) { return new Post(item) })
-    console.log(userItems.date, getExpirationDate(posts))
     if (userItems.date < getExpirationDate(posts)) return
     return items
 }
