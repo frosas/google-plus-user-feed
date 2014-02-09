@@ -60,11 +60,20 @@ Items.prototype._setCached = function(userId, items) {
 
 Items.prototype._getCached = function(userId) {
     var userItems = this._itemsByUser[userId]
-    if (!userItems || userItems.date < this.expirationDate) {
-        console.log('cache miss')
+
+    if (!userItems) {
+        console.log('[CACHE] Missing for ' + userId)
         return
     }
-    console.log('cache hit')
+
+    console.log('[CACHE] Current min age: ' + parseInt(this.cacheAgePerUser / 1000 / 60, 10) + ' mins')
+
+    if (userItems.date < this.expirationDate) {
+        console.log('[CACHE] Expired for ' + userId + ' (' + userItems.date + ')')
+        return
+    }
+
+    console.log('[CACHE] Hit for ' + userId)
     return userItems.items
 }
 
