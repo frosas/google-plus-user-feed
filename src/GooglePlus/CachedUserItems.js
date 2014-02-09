@@ -60,8 +60,11 @@ Items.prototype._setCached = function(userId, items) {
 
 Items.prototype._getCached = function(userId) {
     var userItems = this._itemsByUser[userId]
-    if (!userItems) return
-    if (userItems.date < this.expirationDate) return
+    if (!userItems || userItems.date < this.expirationDate) {
+        console.log('cache miss')
+        return
+    }
+    console.log('cache hit')
     return userItems.items
 }
 
