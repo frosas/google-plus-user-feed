@@ -25,3 +25,7 @@ exports.ServerError = function(message, publicMessage) {
     this.publicMessage = publicMessage
 }
 exports.ServerError.prototype = new Error
+
+exports.stringify = function(error) {
+    return error instanceof Error ? error.stack : String(error)
+}

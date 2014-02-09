@@ -55,7 +55,7 @@ app.use(function(error, request, response, next) {
         var code = error instanceof errors.NotFoundError ? 404 : 400
         response.send(error.message, code)
     } else {
-        console.error(error.message)
+        console.error(errors.stringify(error))
         response.send(error.publicMessage || "Internal Error", 500)
     }
 })
