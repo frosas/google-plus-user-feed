@@ -16,9 +16,10 @@ exports.GooglePlus = function(apiKey) {
                 }
                 if (json.error) {
                     var errorType = function() {
+                        if (json.error.code >= 500) return errors.ServerError
                         if (json.error.code == 404) return errors.NotFoundError
                         if (json.error.code >= 400) return errors.UserError
-                        return errors.ServerError
+                        return Error
                     }()
                     return callback(new errorType("[Google+ error] " + json.error.message))
                 }
