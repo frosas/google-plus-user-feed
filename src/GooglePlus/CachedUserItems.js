@@ -4,7 +4,9 @@ var GooglePlus = require('../GooglePlus')
 var Post = require('../Post')
 var _ = require('lodash')
 
-var googlePlusRequestsMonthlyLimit = 50000
+var googlePlusRequestsMonthlyLimit = 
+    50000 /* real reqs/month */ * 
+    .9 // give some margin to monthly growths
 var month = 30 /* days */ * 24 * 60 * 60 * 1000
 
 var Items = function(apiKey) {
