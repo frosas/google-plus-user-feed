@@ -4,50 +4,14 @@ var GooglePlus = require('../GooglePlus')
 var Post = require('../Post')
 var _ = require('lodash')
 
-var googlePlusRequestsMonthlyLimit = 
-    50000 /* real reqs/month */ * 
-    .9 // give some margin to monthly growths
-var month = 30 /* days */ * 24 * 60 * 60 * 1000
+var cacheAgePerUser = 2 /* hours */ * 60 * 60 * 1000;
 
 var Items = function(apiKey) {
     this._plus = new GooglePlus(apiKey)
     this._itemsByUser = {}
 
-    Object.defineProperty(this, 'monthlyUsersCount', {
-        get: function() {
-            var firstUserActivityDate = _.map(this._itemsByUser)
-                .reduce(function(date, nextUserItems) {
-                    return new Date(Math.min(date.getTime(), nextUserItems.date.getTime()))
-                }, new Date)
-
-            var knownUserActivityPeriod = new Date - firstUserActivityDate
-
-            var monthlyUsersCountExtrapolationMultiplier = Math.max(1, 1 * month / knownUserActivityPeriod)
-
-            var knownMonthlyUsersCount = _.map(this._itemsByUser)
-                .filter(function(userItems) {
-                    return userItems.date > new Date(Date.now() - 1 * month)
-                })
-                .length
-
-            return knownMonthlyUsersCount * monthlyUsersCountExtrapolationMultiplier
-        }
-    })
-
-    Object.defineProperty(this, 'maxRequestsPerUserAndMonth', {
-        get: function() { 
-            return googlePlusRequestsMonthlyLimit / this.monthlyUsersCount 
-        }
-    })
-
-    Object.defineProperty(this, 'cacheAgePerUser', {
-        get: function() { 
-            return 1 * month / this.maxRequestsPerUserAndMonth 
-        }
-    })
-
     Object.defineProperty(this, 'expirationDate', {
-        get: function() { return new Date(Date.now() - this.cacheAgePerUser) }
+        get: function() { return new Date(Date.now() - cacheAgePerUser) }
     })
 }
 
@@ -76,8 +40,6 @@ Items.prototype._getCached = function(userId) {
         console.log('[CACHE] Missing for ' + userId)
         return
     }
-
-    console.log('[CACHE] Current min age: ' + parseInt(this.cacheAgePerUser / 1000 / 60, 10) + ' mins')
 
     if (userItems.date < this.expirationDate) {
         console.log('[CACHE] Expired for ' + userId + ' (' + userItems.date + ')')
