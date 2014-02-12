@@ -4,7 +4,10 @@ var GooglePlus = require('../GooglePlus')
 var Post = require('../Post')
 var _ = require('lodash')
 
-var cacheAgePerUser = 2 /* hours */ * 60 * 60 * 1000;
+var dailyRequestsLimit = 50000
+var dailyUsersCount = 3000
+var dailyUserRequestsLimit = dailyRequestsLimit / dailyUsersCount
+var cacheAgePerUser = 1 /* day */ * 24 * 60 * 60 * 1000 / dailyUserRequestsLimit
 
 var Items = function(apiKey) {
     this._plus = new GooglePlus(apiKey)
