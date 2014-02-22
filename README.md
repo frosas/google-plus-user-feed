@@ -6,6 +6,11 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 
 ## Changelog
 
+2014-02-22
+
+- Attachment type is not included in the title by default anymore. Add `?include-attachment-type` 
+  to the feed URL if you want the previous behaviour.
+
 2013-06-12
 
 - Added posts content (thanks to [John Metta](https://github.com/johnmetta))

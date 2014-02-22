@@ -6,7 +6,7 @@ module.exports = function(rawItem, style) {
     style = style || {}
     style.title = style.title || 'cut'
     this.url = rawItem.url
-    this.title = postTitle(rawItem, style.title)
+    this.title = postTitle(rawItem, style.title, style.includeAttachmentType)
     this.content = body(rawItem)
     this.updated = new Date(rawItem.updated)
     this.author = rawItem.actor.displayName
@@ -133,7 +133,7 @@ var body = function(item) {
     return body + type;
 }
 
-var postTitle = function(item, titleStyle) {
+var postTitle = function(item, titleStyle, includeAttachmentType) {
     var belongsToPhotoAlbum = function() {
         return item.object.attachments &&
             item.object.attachments.any(function(a) { 
@@ -179,15 +179,18 @@ var postTitle = function(item, titleStyle) {
         }
     })()
 
-    // Include attachment type
-    if (item.object.attachments) {
-        var type = (function() {
-            if (item.object.attachments.some(function(a) { return a.objectType === 'article' })) return 'link'
-            if (item.object.attachments.any(function(a) { return a.objectType === 'photo' })) return 'photo'
-            if (item.object.attachments.any(function(a) { return a.objectType === 'video' })) return 'video'
-        })()
+    if (includeAttachmentType) {
+        var type = attachmentType(item)
         if (type) title += ' [' + type + ']'
     }
 
     return title;
+}
+
+var attachmentType = function(item) {
+    if (item.object.attachments) {
+        if (item.object.attachments.some(function(a) { return a.objectType === 'article' })) return 'link'
+        if (item.object.attachments.any(function(a) { return a.objectType === 'photo' })) return 'photo'
+        if (item.object.attachments.any(function(a) { return a.objectType === 'video' })) return 'video'
+    }
 }
