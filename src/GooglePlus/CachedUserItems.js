@@ -4,7 +4,7 @@ var Post = require('../Post')
 var _ = require('lodash')
 
 var dailyRequestsLimit = 50000
-var dailyUsersCount = 2700
+var dailyUsersCount = 3200
 var dailyUserRequestsLimit = dailyRequestsLimit / dailyUsersCount
 var cacheAgePerUser = 1 /* day */ * 24 * 60 * 60 * 1000 / dailyUserRequestsLimit
 
