@@ -19,10 +19,16 @@ var Items = function(googlePlus) {
 
 Items.prototype.get = function(userId, callback) {
     var items = this
-    var userItems = this._getCached(userId)
-    if (userItems) return callback(null, userItems)
-    this._googlePlus.userItems(userId, function(e, userItems) {
-        if (e) return callback(e)
+    var cache = this._getCached(userId)
+    console.log('[CACHE] ' + this._getUserCacheStatusMessage(userId, cache))
+    if (cache && !cache.expired) return callback(null, cache.value)
+    this._googlePlus.userItems(userId, function(err, userItems) {
+        if (err) {
+            // Try to use the cached value (even if it expired) or simply fail
+            if (!cache) return callback(err)
+            console.error(err)
+            return callback(null, cache.value)
+        }
         items._setCached(userId, userItems)
         callback(null, userItems)
     })
@@ -35,21 +41,23 @@ Items.prototype._setCached = function(userId, items) {
     }
 }
 
+/**
+ * @returns {Object|null} As {value, expired: boolean}
+ */
 Items.prototype._getCached = function(userId) {
-    var userItems = this._itemsByUser[userId]
-
-    if (!userItems) {
-        console.log('[CACHE] Missing for ' + userId)
-        return
+    var cache = this._itemsByUser[userId]    
+    if (cache) {
+        return {
+            value: cache.items,
+            expired: cache.date < this.expirationDate
+        }
     }
+}
 
-    if (userItems.date < this.expirationDate) {
-        console.log('[CACHE] Expired for ' + userId + ' (' + userItems.date + ')')
-        return
-    }
-
-    console.log('[CACHE] Hit for ' + userId)
-    return userItems.items
+Items.prototype._getUserCacheStatusMessage = function(userId, cache) {
+    if (!cache) return 'Missing for ' + userId
+    if (cache.expired) return 'Expired for ' + userId
+    return 'Hit for ' + userId
 }
 
 module.exports = Items
