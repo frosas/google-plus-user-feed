@@ -11,10 +11,6 @@ var cacheAgePerUser = 1 /* day */ * 24 * 60 * 60 * 1000 / dailyUserRequestsLimit
 var Items = function(googlePlus) {
     this._googlePlus = googlePlus
     this._itemsByUser = {}
-
-    Object.defineProperty(this, 'expirationDate', {
-        get: function() { return new Date(Date.now() - cacheAgePerUser) }
-    })
 }
 
 Items.prototype.get = function(userId, callback) {
@@ -49,7 +45,7 @@ Items.prototype._getCached = function(userId) {
     if (cache) {
         return {
             value: cache.items,
-            expired: cache.date < this.expirationDate
+            expired: cache.date < this._getExpirationDate()
         }
     }
 }
@@ -58,6 +54,10 @@ Items.prototype._getUserCacheStatusMessage = function(userId, cache) {
     if (!cache) return 'Missing for ' + userId
     if (cache.expired) return 'Expired for ' + userId
     return 'Hit for ' + userId
+}
+
+Items.prototype._getExpirationDate = function() {
+    return new Date(Date.now() - cacheAgePerUser)
 }
 
 module.exports = Items
