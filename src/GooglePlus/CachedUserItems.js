@@ -1,6 +1,5 @@
 'use strict'
 
-var GooglePlus = require('../GooglePlus')
 var Post = require('../Post')
 var _ = require('lodash')
 
@@ -9,8 +8,8 @@ var dailyUsersCount = 2700
 var dailyUserRequestsLimit = dailyRequestsLimit / dailyUsersCount
 var cacheAgePerUser = 1 /* day */ * 24 * 60 * 60 * 1000 / dailyUserRequestsLimit
 
-var Items = function(apiKey) {
-    this._plus = new GooglePlus(apiKey)
+var Items = function(googlePlus) {
+    this._googlePlus = googlePlus
     this._itemsByUser = {}
 
     Object.defineProperty(this, 'expirationDate', {
@@ -22,7 +21,7 @@ Items.prototype.get = function(userId, callback) {
     var items = this
     var userItems = this._getCached(userId)
     if (userItems) return callback(null, userItems)
-    this._plus.userItems(userId, function(e, userItems) {
+    this._googlePlus.userItems(userId, function(e, userItems) {
         if (e) return callback(e)
         items._setCached(userId, userItems)
         callback(null, userItems)

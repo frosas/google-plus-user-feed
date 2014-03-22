@@ -5,10 +5,12 @@ var CachedUserItems = require('./GooglePlus/CachedUserItems'),
     express = require('express'),
     errors = require('./errors'),
     connect = require('connect'),
-    Post = require('./Post')
+    Post = require('./Post'),
+    GooglePlus = require('./GooglePlus')
 
 var app = express()
-var cachedUserItems = new CachedUserItems(process.env.GOOGLE_API_KEY)
+var googlePlus = new GooglePlus(process.env.GOOGLE_API_KEY)
+var cachedUserItems = new CachedUserItems(googlePlus)
 
 app.configure(function() {     
     app.use(express.static(__dirname + '/../public'))
