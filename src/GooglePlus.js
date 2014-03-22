@@ -3,6 +3,7 @@ var request = require('request'),
     errors = require('./errors')
 
 var Plus = function(apiKey) {
+    if (!apiKey) throw new Error('No API key provided')
     this._apiKey = apiKey
 }
 
