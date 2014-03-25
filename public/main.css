@@ -17,7 +17,7 @@ cite { font-style: italic }
 
 h1 { margin-bottom: 10px }
 
-#feed-form input[name='user'] { width: 16em }
+#feed-form input[name='user'] { width: 20em }
 
 body.feed .items > div a { display: block; padding: 10px; text-decoration: none; color: inherit }
 body.feed .items > div a:hover { background: #FDF5D9 }
