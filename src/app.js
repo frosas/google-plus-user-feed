@@ -5,14 +5,14 @@ var express = require('express'),
     errors = require('./errors'),
     connect = require('connect'),
     Post = require('./Post')
-    
+
 var App = module.exports = function(cachedUserItems) {
     var app = express()
 
-    app.configure(function() {     
+    app.configure(function() {
         app.use(express.static(__dirname + '/../public'))
         app.set('views', __dirname + '/../views')
-        app.set('view engine', 'ejs')   
+        app.set('view engine', 'ejs')
         app.set('view options', {layout: false})
         app.use(connect.compress());
         app.use(function(request, response, next) {
@@ -27,7 +27,7 @@ var App = module.exports = function(cachedUserItems) {
 
     app.get('/:id', function(request, response, next) {
         var userId = request.params.id
-        if (! /^[0-9]+$/.test(userId)) return next()
+        if (! /^([0-9]+|\+.*)$/.test(userId)) return next()
         var style = {
             title: request.query.title,
             includeAttachmentType: 'include-attachment-type' in request.query
@@ -62,6 +62,6 @@ var App = module.exports = function(cachedUserItems) {
             response.send(error.publicMessage || "Internal Error", 500)
         }
     })
-    
+
     return app
 }

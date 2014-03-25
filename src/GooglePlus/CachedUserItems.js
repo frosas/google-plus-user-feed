@@ -15,6 +15,7 @@ var Items = function(googlePlus) {
 
 Items.prototype.get = function(userId, callback) {
     var items = this
+    userId = userId.toLowerCase() // Normalize it
     var cache = this._getCached(userId)
     console.log('[CACHE] ' + this._getUserCacheStatusMessage(userId, cache))
     if (cache && !cache.expired) return callback(null, cache.value)
@@ -41,7 +42,7 @@ Items.prototype._setCached = function(userId, items) {
  * @returns {Object|null} As {value, expired: boolean}
  */
 Items.prototype._getCached = function(userId) {
-    var cache = this._itemsByUser[userId]    
+    var cache = this._itemsByUser[userId]
     if (cache) {
         return {
             value: cache.items,
