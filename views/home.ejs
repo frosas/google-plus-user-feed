@@ -69,17 +69,15 @@
     </small></p>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
 <script>
-    $(function() {
-        $('form').submit(function() {
-            var userId = $('form input[name=user]').val()
-            if (/^[0-9]+$/.test(userId)) {
-                open(userId)
-            } else {
-                alert("'" + userId + "' is not valid user id")
-            }
-            return false
+    ;(function() {
+        window.onerror = alert
+
+        var form = document.querySelector('form')
+        form.addEventListener('submit', function(event) {
+            event.preventDefault()
+            var userId = form.querySelector('input[name]').value
+            open(userId)
         })
-    })
+    })()
 </script>
