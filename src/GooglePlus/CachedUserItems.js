@@ -17,7 +17,7 @@ Items.prototype.get = function(userId, callback) {
     var items = this
     userId = userId.toLowerCase() // Normalize it
     var cache = this._getCached(userId)
-    console.log('[CACHE] ' + this._getUserCacheStatusMessage(userId, cache))
+    console.log(this._getUserCacheLog(userId, cache))
     if (cache && !cache.expired) return callback(null, cache.value)
     this._googlePlus.userItems(userId, function(err, userItems) {
         if (err) {
@@ -51,10 +51,15 @@ Items.prototype._getCached = function(userId) {
     }
 }
 
-Items.prototype._getUserCacheStatusMessage = function(userId, cache) {
-    if (!cache) return 'Missing for ' + userId
-    if (cache.expired) return 'Expired for ' + userId
-    return 'Hit for ' + userId
+Items.prototype._getUserCacheLog = function (userId, cache) {
+    return JSON.stringify({
+        user: userId,
+        cache: (function () {
+            if (!cache) return 'missing'
+            if (cache.expired) return 'expired'
+            return 'hit'
+        })()
+    })
 }
 
 Items.prototype._getExpirationDate = function() {
