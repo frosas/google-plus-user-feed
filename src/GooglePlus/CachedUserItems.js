@@ -63,7 +63,7 @@ Items.prototype._getExpirationDate = function() {
 
 Items.prototype._getCacheAgePerUser = function (params) {
     params = params || {}
-    params.dailyUsers = params.dailyUsers || 5000
+    params.dailyUsers = params.dailyUsers || 9000
     params.dailyRequestsLimit = params.dailyRequestsLimit || 50000
     var dailyRequestsLimitPerUser = params.dailyRequestsLimit / params.dailyUsers
     return 1 /* day */ * 24 * 60 * 60 * 1000 / dailyRequestsLimitPerUser
