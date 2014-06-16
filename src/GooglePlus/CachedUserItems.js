@@ -3,11 +3,6 @@
 var Post = require('../Post')
 var _ = require('lodash')
 
-var dailyUsersCount = 5000
-var dailyRequestsLimit = 50000
-var dailyUserRequestsLimit = dailyRequestsLimit / dailyUsersCount
-var cacheAgePerUser = 1 /* day */ * 24 * 60 * 60 * 1000 / dailyUserRequestsLimit
-
 var Items = function(googlePlus) {
     this._googlePlus = googlePlus
     this._itemsByUser = {}
@@ -63,7 +58,14 @@ Items.prototype._getUserCacheLog = function (userId, cache) {
 }
 
 Items.prototype._getExpirationDate = function() {
-    return new Date(Date.now() - cacheAgePerUser)
+    return new Date(Date.now() - this._getCacheAgePerUser())
+}
+
+Items.prototype._getCacheAgePerUser = function () {
+    var dailyUsersCount = 5000
+    var dailyRequestsLimit = 50000
+    var dailyUserRequestsLimit = dailyRequestsLimit / dailyUsersCount
+    return 1 /* day */ * 24 * 60 * 60 * 1000 / dailyUserRequestsLimit
 }
 
 module.exports = Items
