@@ -19,8 +19,5 @@
   "devDependencies": {
     "nodemon": "~1.0.17",
     "mocha": "~1.20.1"
-  },
-  "scripts": {
-      "start": "nodemon src/main.js"
   }
 }
