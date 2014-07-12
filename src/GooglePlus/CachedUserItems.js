@@ -14,16 +14,18 @@ Items.prototype.get = function(userId, callback) {
     var cache = this._getCached(userId)
     console.log(this._getUserCacheLog(userId, cache))
     if (cache && !cache.expired) return callback(null, cache.value)
-    this._googlePlus.userItems(userId, function(err, userItems) {
-        if (err) {
-            // Try to use the cached value (even if it expired) or simply fail
-            if (!cache) return callback(err)
-            console.error(err)
-            return callback(null, cache.value)
-        }
-        items._setCached(userId, userItems)
-        callback(null, userItems)
-    })
+    this._googlePlus.getUserItems(userId)
+        .catch(function (error) {
+            // Try to use the cached value (even if it has expired) before failing
+            if (!cache) throw error
+            console.error(error)
+            return cache.value
+        })
+        .then(function (userItems) {
+            items._setCached(userId, userItems)
+            return userItems
+        })
+        .nodeify(callback)
 }
 
 Items.prototype._setCached = function(userId, items) {
