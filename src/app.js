@@ -32,15 +32,16 @@ var App = module.exports = function(cachedUserItems) {
             title: request.query.title,
             includeAttachmentType: 'include-attachment-type' in request.query
         }
-        cachedUserItems.get(userId, function(error, items) {
-            if (error) return next(error)
-            var posts = items.map(function(item) { return new Post(item, style) })
-            response.header('Content-Type', 'text/xml; charset=utf-8')
-            response.render('feed', {
-                profileUrl: 'https://plus.google.com/' + userId,
-                posts: posts
+        cachedUserItems.get(userId)
+            .then(function(items) {
+                var posts = items.map(function(item) { return new Post(item, style) })
+                response.header('Content-Type', 'text/xml; charset=utf-8')
+                response.render('feed', {
+                    profileUrl: 'https://plus.google.com/' + userId,
+                    posts: posts
+                })
             })
-        })
+            .catch(next)
     })
 
     app.get('/feed.xsl', function(request, response) {

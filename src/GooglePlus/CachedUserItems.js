@@ -2,19 +2,20 @@
 
 var Post = require('../Post')
 var _ = require('lodash')
+var Q = require('q')
 
 var Items = function(googlePlus) {
     this._googlePlus = googlePlus
     this._itemsByUser = {}
 }
 
-Items.prototype.get = function(userId, callback) {
+Items.prototype.get = function(userId) {
     var items = this
     userId = userId.toLowerCase() // Normalize it
     var cache = this._getCached(userId)
     console.log(this._getUserCacheLog(userId, cache))
-    if (cache && !cache.expired) return callback(null, cache.value)
-    this._googlePlus.getUserItems(userId)
+    if (cache && !cache.expired) return Q(cache.value)
+    return this._googlePlus.getUserItems(userId)
         .catch(function (error) {
             // Try to use the cached value (even if it has expired) before failing
             if (!cache) throw error
@@ -25,7 +26,6 @@ Items.prototype.get = function(userId, callback) {
             items._setCached(userId, userItems)
             return userItems
         })
-        .nodeify(callback)
 }
 
 Items.prototype._setCached = function(userId, items) {
