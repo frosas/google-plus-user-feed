@@ -5,14 +5,14 @@ var assert = require('assert')
 
 describe("CachedUserItems", function () {
     describe("_getCacheAgePerUser", function () {
-        it("is 24h with as much requests as user feeds", function () {
+        it("is ~4 hours for current values", function () {
             var googlePlus = {} // TODO Don't stub
             var cachedUserItems = new CachedUserItems(googlePlus) // TODO Avoid this dependency
             var age = cachedUserItems._getCacheAgePerUser({
-                maxDailyUsers: 100,
-                dailyRequestsLimit: 100
+                maxDailyUsers: 10000,
+                dailyRequestsLimit: 50000
             })
-            assert.equal(age, 24 /* hours */ * 60 * 60 * 1000)
+            assert.equal(age, 4.8 /* hours */ * 60 * 60 * 1000)
         })
     })
 })
