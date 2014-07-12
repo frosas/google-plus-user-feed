@@ -16,15 +16,15 @@ Items.prototype.get = function(userId) {
     console.log(this._getUserCacheLog(userId, cache))
     if (cache && !cache.expired) return Q(cache.value)
     return this._googlePlus.getUserItems(userId)
+        .then(function (userItems) {
+            items._setCached(userId, userItems)
+            return userItems
+        })    
         .catch(function (error) {
             // Try to use the cached value (even if it has expired) before failing
             if (!cache) throw error
             console.error(error)
             return cache.value
-        })
-        .then(function (userItems) {
-            items._setCached(userId, userItems)
-            return userItems
         })
 }
 
