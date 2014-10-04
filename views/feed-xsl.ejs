@@ -16,9 +16,6 @@
                             <xsl:value-of select="channel/title" />
                         </xsl:element>
                     </h1>
-                    <div class="this-is-a-feed-alert alert alert-block alert-info">
-                        This is an RSS feed. Check <a href="/">home</a> page for details on how to use it.
-                    </div>
                     <div class="items">
                         <xsl:for-each select="channel/item">
                             <div>
@@ -32,12 +29,6 @@
                         </xsl:for-each>
                     </div>
                 </div>
-                <script>
-                    if (window.top) {
-                        var alert = document.querySelector('.this-is-a-feed-alert')
-                        alert.style.display = 'none'
-                    }
-                </script>
             </body>
         </html>
     </xsl:template>
