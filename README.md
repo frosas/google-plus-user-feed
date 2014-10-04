@@ -6,6 +6,10 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 
 ## Changelog
 
+2014-10-04
+
+- Posts full body is shown in the feed page
+
 2014-02-22
 
 - Attachment type is not included in the title by default anymore. Add `?include-attachment-type` 
