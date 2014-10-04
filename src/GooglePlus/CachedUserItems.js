@@ -60,7 +60,9 @@ Items.prototype._getUserCacheLog = function (userId, cache) {
 }
 
 Items.prototype._getExpirationDate = function() {
-    return new Date(Date.now() - this._getCacheAgePerUser())
+    var age = this._getCacheAgePerUser()
+    age /= 1.8 // Is it me or Google allows to do more requests than the stated in the quota?
+    return new Date(Date.now() - age)
 }
 
 Items.prototype._getCacheAgePerUser = function (params) {
