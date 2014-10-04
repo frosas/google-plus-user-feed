@@ -18,13 +18,15 @@
                     </h1>
                     <div class="items">
                         <xsl:for-each select="channel/item">
-                            <div>
-                                <xsl:element name="a">
-                                    <xsl:attribute name="title">Permanent link</xsl:attribute>
-                                    <xsl:attribute name="href"><xsl:value-of select="guid"/></xsl:attribute>
-                                    <xsl:attribute name="target">_blank</xsl:attribute>
-                                    <xsl:value-of select="title"/>
-                                </xsl:element>
+                            <div class="well">
+                                <h2>
+                                    <xsl:element name="a">
+                                        <xsl:attribute name="title">Permanent link</xsl:attribute>
+                                        <xsl:attribute name="href"><xsl:value-of select="guid" /></xsl:attribute>
+                                        <xsl:value-of select="title" />
+                                    </xsl:element>
+                                </h2>
+                                <xsl:value-of select="description" disable-output-escaping="yes" />
                             </div>
                         </xsl:for-each>
                     </div>

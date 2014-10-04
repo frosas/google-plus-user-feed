@@ -13,11 +13,12 @@ cite { font-style: italic }
 
 /* Site specific */
 
-.container { padding: 10px; width: auto; max-width: 60em }
+.container { padding: 10px; width: auto; max-width: 40em }
 
 h1 { margin-bottom: 10px }
 
 #feed-form input[name='user'] { width: 20em }
 
-body.feed .items > div a { display: block; padding: 10px; text-decoration: none; color: inherit }
-body.feed .items > div a:hover { background: #FDF5D9 }
+body.feed .items h2 { font-size: 21px; line-height: 27px; margin-bottom: 19px }
+body.feed .items h2 a { color: inherit }
+body.feed .items .well { background: #fff; border-width: 0; box-shadow: 0 1px 10px rgba(0, 0, 0, .1); padding: 25px }
