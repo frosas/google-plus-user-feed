@@ -26,6 +26,10 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 - `$ GOOGLE_API_KEY=xxx node src/main.js` (see [Google API key](https://developers.google.com/+/api/oauth))
 - Visit [http://localhost:8080/](http://localhost:8080/)
 
+## Testing
+
+- `$ bin/test`
+
 ## TODO
 
 - Automated testing
