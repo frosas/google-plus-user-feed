@@ -6,3 +6,4 @@ COPY . /opt/google-plus-user-feed
 WORKDIR /opt/google-plus-user-feed
 RUN npm install
 ENTRYPOINT node src/main.js 
+EXPOSE 8080
