@@ -24,6 +24,6 @@ function remove_container_if_exists {
 
 remove_container_if_exists $CONTAINER
 docker build -t $IMAGE .
-mute docker run -d --name=$CONTAINER -e GOOGLE_API_KEY=$GOOGLE_API_KEY -p 80:8080 $IMAGE
+docker run -d --name=$CONTAINER -e GOOGLE_API_KEY=$GOOGLE_API_KEY -p 80:8080 $IMAGE
 echo "Now you can visit http://$(vm_ip)"
 docker logs -f $CONTAINER
