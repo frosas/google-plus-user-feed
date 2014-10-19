@@ -3,18 +3,17 @@ require('sugar')
 
 var express = require('express'),
     errors = require('./errors'),
-    connect = require('connect'),
     Post = require('./Post')
 
 var App = module.exports = function(cachedUserItems) {
     var app = express()
 
     app.configure(function() {
+        app.use(express.compress());
         app.use(express.static(__dirname + '/../public'))
         app.set('views', __dirname + '/../views')
         app.set('view engine', 'ejs')
         app.set('view options', {layout: false})
-        app.use(connect.compress());
         app.use(function(request, response, next) {
             response.header('Cache-Control', 'max-age=0')
             next()
