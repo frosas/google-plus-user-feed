@@ -33,14 +33,13 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 ## TODO
 
 - Automated testing
-- Display errors inline (not as an alert)
 - Mark visited links
 - Anything to learn from https://github.com/jtwebman/GooglePlusToRSSFeed?
-- Transformations (make all of them optional?)
-    - G+ user references to Twitter ones
-    - Include the activity type (link, image, video, ...)
-    - Cut title
-    - Include hashtags in RSS item content (to filter by them)
-    - Use only the first line of activity content as title
 - Allow users to use their own API key, and disable any caching if they do.
-- Show full post in feed page
+- Move away from Heroku
+  - Make it easy to maintain ➝ Use Elastic Beanstalk
+  - Make it as independent from AWS as possible ➝ Use Docker
+  - Can I use Ubuntu instead of Fedora?
+  - Consider https://coreos.com/
+  - How to work with Docker during development?
+    - Map project dir into the container?
