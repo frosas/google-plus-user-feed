@@ -1,0 +1,12 @@
+[global]
+ApplicationName=google-plus-user-feed
+DevToolsEndpoint=git.elasticbeanstalk.eu-west-1.amazonaws.com
+EnvironmentName=production
+EnvironmentTier=WebServer::Standard::1.0
+EnvironmentType=SingleInstance
+InstanceProfileName=aws-elasticbeanstalk-ec2-role
+RdsEnabled=No
+Region=eu-west-1
+ServiceEndpoint=https://elasticbeanstalk.eu-west-1.amazonaws.com
+SolutionStack=64bit Amazon Linux 2014.09 v1.0.9 running Docker 1.2.0
+
