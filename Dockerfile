@@ -5,5 +5,5 @@ RUN apt-get update && apt-get install -y nodejs nodejs-legacy npm
 COPY . /opt/google-plus-user-feed
 WORKDIR /opt/google-plus-user-feed
 RUN npm install
-ENTRYPOINT node src/main.js 
+ENTRYPOINT node_modules/.bin/supervisor src/main.js 
 EXPOSE 8080

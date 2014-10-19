@@ -15,7 +15,8 @@
     "newrelic": "~1.3.1",
     "q": "^1.0.1",
     "request": "2.9.x",
-    "sugar": "x"
+    "sugar": "x",
+    "supervisor": "^0.6.0"
   },
   "devDependencies": {
     "nodemon": "~1.0.17",
