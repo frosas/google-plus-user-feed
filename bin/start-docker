@@ -5,25 +5,5 @@ set -e
 IMAGE="frosas/google-plus-user-feed:dev"
 CONTAINER="google-plus-user-feed-dev"
 
-function vm_ip {
-    boot2docker ip 2>/dev/null
-}
-
-function container_exists {
-    CONTAINER=$1
-    mute docker inspect $CONTAINER
-}
-
-function mute {
-    $@ >/dev/null 2>&1
-}
-
-function remove_container_if_exists {
-    if container_exists $CONTAINER; then mute docker rm -f $CONTAINER; fi
-}
-
-remove_container_if_exists $CONTAINER
 docker build -t $IMAGE .
-docker run -d --name=$CONTAINER -e GOOGLE_API_KEY=$GOOGLE_API_KEY -p 80:8080 $IMAGE
-echo "Now you can visit http://$(vm_ip)"
-docker logs -f $CONTAINER
+docker run --rm -ti --name=$CONTAINER -e GOOGLE_API_KEY=$GOOGLE_API_KEY -p 80:8080 $IMAGE
