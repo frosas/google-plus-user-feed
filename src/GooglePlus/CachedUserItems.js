@@ -4,7 +4,7 @@ var Post = require('../Post')
 var _ = require('lodash')
 var Q = require('q')
 
-var Items = function(googlePlus) {
+var Items = module.exports = function(googlePlus) {
     this._googlePlus = googlePlus
     this._itemsByUser = {}
 }
@@ -60,9 +60,7 @@ Items.prototype._getUserCacheLog = function (userId, cache) {
 }
 
 Items.prototype._getExpirationDate = function() {
-    var age = this._getCacheAgePerUser()
-    age /= 1.8 // Is it me or Google allows to do more requests than the stated in the quota?
-    return new Date(Date.now() - age)
+    return new Date(Date.now() - this._getCacheAgePerUser())
 }
 
 Items.prototype._getCacheAgePerUser = function (params) {
@@ -70,7 +68,7 @@ Items.prototype._getCacheAgePerUser = function (params) {
     params.dailyRequestsLimit = params.dailyRequestsLimit || 50000
     params.maxDailyUsers = params.maxDailyUsers || (8000 /* current amount */ * 1.1 /* margin */)
     var dailyRequestsLimitPerUser = params.dailyRequestsLimit / params.maxDailyUsers
-    return 1 /* day */ * 24 * 60 * 60 * 1000 / dailyRequestsLimitPerUser
+    var age = 1 /* day */ * 24 * 60 * 60 * 1000 / dailyRequestsLimitPerUser
+    age /= 1.8 // Is it me or Google allows to do more requests than the stated in the quota?    
+    return age
 }
-
-module.exports = Items
