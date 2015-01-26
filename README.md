@@ -44,3 +44,5 @@ Use it and get more information at **http://plusfeed.frosas.net/**
   - How to work with Docker during development?
     - Map project dir into the container?
   - Processes ➝ Syslog ➝ Splunk
+- Store cache in a datastore
+  - Consider https://addons.heroku.com/mongosoup
