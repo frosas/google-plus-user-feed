@@ -9,7 +9,6 @@
     "npm": "1.4.x"
   },
   "dependencies": {
-    "connect": "2.8.x",
     "ejs": "0.8.x",
     "express": "3.3.x",
     "jsdom": "0.2.x",
