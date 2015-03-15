@@ -136,7 +136,7 @@ var body = function(item) {
 var postTitle = function(item, titleStyle, includeAttachmentType) {
     var belongsToPhotoAlbum = function() {
         return item.object.attachments &&
-            item.object.attachments.any(function(a) { 
+            item.object.attachments.some(function(a) { 
                 return a.objectType === 'photo-album' 
             })
     }

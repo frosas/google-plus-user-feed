@@ -1,5 +1,4 @@
 require('newrelic')
-require('sugar')
 
 var express = require('express'),
     errors = require('./errors'),
