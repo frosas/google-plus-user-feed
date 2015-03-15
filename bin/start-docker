@@ -1,9 +1,0 @@
-#!/bin/bash
-
-set -e
-
-IMAGE="frosas/google-plus-user-feed:dev"
-CONTAINER="google-plus-user-feed-dev"
-
-docker build -t $IMAGE .
-docker run --rm -ti --name=$CONTAINER -e GOOGLE_API_KEY=$GOOGLE_API_KEY -p 80:8080 $IMAGE
