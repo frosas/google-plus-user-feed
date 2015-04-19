@@ -52,7 +52,7 @@ module.exports = function(cachedUserItems) {
         next(new errors.NotFoundError);
     });
 
-    app.use(function(error, request, response) {
+    app.use(function(error, request, response, next) { // eslint-disable-line no-unused-vars
         response.header('Content-Type', 'text/plain; charset=utf-8');
         if (error instanceof errors.UserError) {
             console.error(error);
