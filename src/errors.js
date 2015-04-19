@@ -1,32 +1,50 @@
 'use strict';
 
+var util = require('util');
+
+/**
+ * @param {Object} params
+ * @param {string} [params.name] 'CustomError' by default
+ * @param {Error} [params.parent] 'Error' by default
+ * @param {function} [params.constructor] A no-op function by default
+ */
+var createError = function (params) {
+    var CustomError = function () {
+        this.name = params.name || 'CustomError';
+        Error.captureStackTrace(this, this.constructor);
+        if (params.constructor) params.constructor.apply(this, arguments);
+    };
+    util.inherits(CustomError, params.parent || Error);
+    return CustomError;
+};
+
 /**
  * An error caused by the user of the function
  */
-exports.UserError = function(message) {
-    this.name = 'UserError';
-    this.message = message || 'User error';
-};
-exports.UserError.prototype = new Error;
+var UserError = exports.UserError = createError({
+    name: 'UserError',
+    constructor: function (message) { this.message = message || 'User error'; }
+});
 
 /**
  * A generic "Not found" error
  */
-exports.NotFoundError = function(message) {
-    this.name = 'NotFoundError';
-    this.message = message || 'Not found';
-};
-exports.NotFoundError.prototype = new exports.UserError;
+exports.NotFoundError = createError({
+    name: 'NotFoundError',
+    parent: UserError,
+    constructor: function (message) { this.message = message || 'Not found'; }
+});
 
 /**
  * An error caused by the server
  */
-exports.ServerError = function(message, publicMessage) {
-    this.name = 'ServerError';
-    this.message = message || 'Internal Error';
-    this.publicMessage = publicMessage;
-};
-exports.ServerError.prototype = new Error;
+exports.ServerError = createError({
+    name: 'ServerError',
+    constructor: function(message, publicMessage) {
+        this.message = message || 'Internal Error';
+        this.publicMessage = publicMessage;
+    }
+});
 
 exports.stringify = function(error) {
     return error instanceof Error ? error.stack : String(error);
