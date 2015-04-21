@@ -6,17 +6,12 @@ var Post = require('./Post');
 
 module.exports = function(cachedUserItems) {
     var app = express();
-
-    app.configure(function() {
-        app.use(express.compress());
-        app.use(express.static('public'));
-        app.set('views', 'views');
-        app.set('view engine', 'ejs');
-        app.set('view options', {layout: false});
-        app.use(function(request, response, next) {
-            response.header('Cache-Control', 'max-age=0');
-            next();
-        });
+    app.set('views', 'views');
+    app.set('view engine', 'ejs');
+    app.set('view options', {layout: false});
+    app.use(function(request, response, next) {
+        response.header('Cache-Control', 'max-age=0');
+        next();
     });
 
     app.get('/', function(request, response) {
@@ -46,6 +41,8 @@ module.exports = function(cachedUserItems) {
         response.render('feed-xsl');
     });
 
+    app.use(express.static('public'));
+
     app.use(function(request, response, next) {
         next(new errors.NotFoundError);
     });
@@ -54,10 +51,11 @@ module.exports = function(cachedUserItems) {
         response.header('Content-Type', 'text/plain; charset=utf-8');
         console.error(errors.stringify(error));
         if (error instanceof errors.UserError) {
-            var code = error instanceof errors.NotFoundError ? 404 : 400;
-            response.send(error.message, code);
+            response.status(error instanceof errors.NotFoundError ? 404 : 400);
+            response.send(error.message);
         } else {
-            response.send(error.publicMessage || "Internal Error", 500);
+            response.status(500);
+            response.send(error.publicMessage || "Internal Error");
         }
     });
 
