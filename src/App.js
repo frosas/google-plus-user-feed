@@ -1,7 +1,5 @@
 'use strict';
 
-require('newrelic');
-
 var express = require('express');
 var errors = require('./errors');
 var Post = require('./Post');

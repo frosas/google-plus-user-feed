@@ -1,5 +1,7 @@
 'use strict';
 
+require('newrelic');
+
 var App = require('./App');
 var GooglePlus = require('./GooglePlus');
 var CachedUserItems = require('./GooglePlus/CachedUserItems');
