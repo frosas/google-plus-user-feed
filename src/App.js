@@ -23,9 +23,9 @@ module.exports = function(cachedUserItems) {
         response.render('home');
     });
 
-    app.get('/:id', function(request, response, next) {
-        var userId = request.params.id;
-        if (!/^([0-9]+|\+.*)$/.test(userId)) return next();
+    // TODO Why named regexps don't work? E.g. /:id([0-9]+|\\+.+)
+    app.get(/([0-9]+|\+.+)/, function (request, response, next) {
+        var userId = request.params[0];
         var style = {
             title: request.query.title,
             includeAttachmentType: 'include-attachment-type' in request.query
