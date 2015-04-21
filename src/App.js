@@ -52,12 +52,11 @@ module.exports = function(cachedUserItems) {
 
     app.use(function(error, request, response, next) { // eslint-disable-line no-unused-vars
         response.header('Content-Type', 'text/plain; charset=utf-8');
+        console.error(errors.stringify(error));
         if (error instanceof errors.UserError) {
-            console.error(error);
             var code = error instanceof errors.NotFoundError ? 404 : 400;
             response.send(error.message, code);
         } else {
-            console.error(errors.stringify(error));
             response.send(error.publicMessage || "Internal Error", 500);
         }
     });
