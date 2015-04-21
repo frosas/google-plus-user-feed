@@ -46,7 +46,7 @@ module.exports = function(cachedUserItems) {
         response.render('feed-xsl');
     });
 
-    app.get('/*', function(request, response, next) {
+    app.use(function(request, response, next) {
         next(new errors.NotFoundError);
     });
 
