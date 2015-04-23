@@ -1,12 +1,10 @@
 {
   "name": "google-plus-feed",
   "version": "1.0.0",
-  "scripts": {
-    "start": "node src/main.js"
-  },
   "engines": {
     "node": "0.10.x"
   },
+  "scripts": {"start": "node src/main.js"},
   "dependencies": {
     "ejs": "0.8.x",
     "express": "^4.12.3",
