@@ -47,7 +47,7 @@ module.exports = function(cachedUserItems) {
         next(new errors.NotFoundError);
     });
 
-    app.use(function(error, request, response, next) { // eslint-disable-line no-unused-vars
+    app.use(function(error, request, response, next) {
         response.header('Content-Type', 'text/plain; charset=utf-8');
         console.error(errors.stringify(error));
         if (error instanceof errors.UserError) {
@@ -57,6 +57,7 @@ module.exports = function(cachedUserItems) {
             response.status(500);
             response.send(error.publicMessage || "Internal Error");
         }
+        next();
     });
 
     return app;
