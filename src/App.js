@@ -3,6 +3,7 @@
 var express = require('express');
 var errors = require('./errors');
 var Post = require('./Post');
+var newrelic = require('newrelic');
 
 module.exports = function(cachedUserItems) {
     var app = express();
@@ -33,6 +34,8 @@ module.exports = function(cachedUserItems) {
                     profileUrl: 'https://plus.google.com/' + userId,
                     posts: posts
                 });
+                                
+                newrelic.recordCustomEvent('User Feed', {ID: userId});
             })
             .catch(next);
     });
@@ -48,8 +51,10 @@ module.exports = function(cachedUserItems) {
     });
 
     app.use(function(error, request, response, next) {
-        response.header('Content-Type', 'text/plain; charset=utf-8');
+        newrelic.noticeError(error);
         console.error(errors.stringify(error));
+
+        response.header('Content-Type', 'text/plain; charset=utf-8');
         if (error instanceof errors.UserError) {
             response.status(error instanceof errors.NotFoundError ? 404 : 400);
             response.send(error.message);

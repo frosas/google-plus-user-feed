@@ -1,6 +1,7 @@
 'use strict';
 
 var Q = require('q');
+var newrelic = require('newrelic');
 
 var Items = module.exports = function(googlePlus) {
     this._googlePlus = googlePlus;
@@ -10,8 +11,8 @@ var Items = module.exports = function(googlePlus) {
 Items.prototype.get = function(userId) {
     var items = this;
     userId = userId.toLowerCase(); // Normalize it
-    var cache = this._getCached(userId);
-    console.log(this._getUserCacheLog(userId, cache));
+    var cache = this._getCached(userId);    
+    this._logUserCacheStatus(userId, cache);    
     if (cache && !cache.expired) return Q(cache.value);
     return this._googlePlus.getUserItems(userId)
         .then(function (userItems) {
@@ -46,15 +47,16 @@ Items.prototype._getCached = function(userId) {
     }
 };
 
-Items.prototype._getUserCacheLog = function (userId, cache) {
-    return JSON.stringify({
-        user: userId,
-        cache: (function () {
-            if (!cache) return 'missing';
-            if (cache.expired) return 'expired';
-            return 'hit';
-        })()
-    });
+Items.prototype._logUserCacheStatus = function (userId, cache) {
+    var status = {ID: userId, Status: this._getCacheStatus(cache)};
+    console.log(JSON.stringify(status));
+    newrelic.recordCustomEvent('User Feed Cache', status);
+};
+
+Items.prototype._getCacheStatus = function (cache) {
+    if (!cache) return 'Missing';
+    if (cache.expired) return 'Expired';
+    return 'Hit';    
 };
 
 Items.prototype._getExpirationDate = function() {
