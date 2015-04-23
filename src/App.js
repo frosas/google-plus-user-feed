@@ -51,9 +51,6 @@ module.exports = function(cachedUserItems) {
     });
 
     app.use(function(error, request, response, next) {
-        newrelic.noticeError(error);
-        console.error(errors.stringify(error));
-
         response.header('Content-Type', 'text/plain; charset=utf-8');
         if (error instanceof errors.UserError) {
             response.status(error instanceof errors.NotFoundError ? 404 : 400);
@@ -61,6 +58,9 @@ module.exports = function(cachedUserItems) {
         } else {
             response.status(500);
             response.send(error.publicMessage || "Internal Error");
+            
+            newrelic.noticeError(error);
+            console.error(errors.stringify(error));
         }
         next();
     });
