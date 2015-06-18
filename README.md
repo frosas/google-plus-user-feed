@@ -37,3 +37,5 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 - Anything to learn from https://github.com/jtwebman/GooglePlusToRSSFeed?
 - Allow users to use their own API key, and disable any caching if they do.
 - Store cache in a datastore
+- node 0.10 → 0.12
+- Expand images
