@@ -4,9 +4,9 @@ var Q = require('q');
 var newrelic = require('newrelic');
 var sqlite = require('sqlite3');
 
-var Items = module.exports = function(googlePlus) {
-    this._googlePlus = googlePlus;    
-    this._db = new sqlite.Database(':memory:');
+var Items = module.exports = function(params) {
+    this._googlePlus = params.googlePlus;
+    this._db = new sqlite.Database(params.path);
     this._db.run('create table cachedUserItems (id varchar(255), items text, date integer)');
 };
 
