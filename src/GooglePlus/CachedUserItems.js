@@ -5,9 +5,15 @@ var newrelic = require('newrelic');
 var sqlite = require('sqlite3');
 
 var Items = module.exports = function(params) {
+    var items = this;
     this._googlePlus = params.googlePlus;
-    this._db = new sqlite.Database(params.path);
-    this._db.run('create table cachedUserItems (id varchar(255), items text, date integer)');
+    return Q.Promise(function (resolve, reject) {
+        items._db = new sqlite.Database(params.path, function (error) {
+            error ? reject(error) : resolve();
+        });
+    }).then(function () {
+        return Q.nsend(items._db, 'run', 'create table cachedUserItems (id varchar(255), items text, date integer)');
+    }).then(function () { return items; });
 };
 
 Items.prototype.get = function(userId) {
