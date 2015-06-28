@@ -2,49 +2,54 @@
 
 var Q = require('q');
 var newrelic = require('newrelic');
+var sqlite = require('sqlite3');
 
 var Items = module.exports = function(googlePlus) {
-    this._googlePlus = googlePlus;
-    this._itemsByUser = {};
+    this._googlePlus = googlePlus;    
+    this._db = new sqlite.Database(':memory:');
+    this._db.run('create table cachedUserItems (id varchar(255), items text, date integer)');
 };
 
 Items.prototype.get = function(userId) {
     var items = this;
-    userId = userId.toLowerCase(); // Normalize it
-    var cache = this._getCached(userId);    
-    this._logUserCacheStatus(userId, cache);    
-    if (cache && !cache.expired) return Q(cache.value);
-    return this._googlePlus.getUserItems(userId)
-        .then(function (userItems) {
-            items._setCached(userId, userItems);
-            return userItems;
-        })    
-        .catch(function (error) {
-            // Try to use the cached value (even if it has expired) before failing
-            if (!cache) throw error;
-            console.error(error);
-            return cache.value;
-        });
+    userId = userId.toLowerCase(); // Normalize it    
+    return this._getCached(userId).then(function (cache) {
+        items._logUserCacheStatus(userId, cache);
+        if (cache && !cache.expired) return cache.items;
+        return items._googlePlus.getUserItems(userId).
+            then(function (userItems) {
+                return items._setCached(userId, userItems).then(function () {
+                    return userItems;
+                });
+            }).
+            catch(function (error) {
+                // Try to use the cached items (even if it has expired) before failing
+                if (!cache) throw error;
+                console.error(error);
+                return cache.items;                
+            });
+    });
 };
 
 Items.prototype._setCached = function(userId, items) {
-    this._itemsByUser[userId] = {
-        items: items,
-        date: new Date
-    };
+    return Q.nsend(this._db, 'run', 'insert into cachedUserItems values ($id, $items, $date)', {
+        $id: userId, 
+        $items: JSON.stringify(items),
+        $date: Date.now()
+    });
 };
 
 /**
- * @returns {Object|null} As {value, expired: boolean}
+ * @returns {Object|null} As {items: Array, expired: boolean}
  */
-Items.prototype._getCached = function(userId) {
-    var cache = this._itemsByUser[userId];
-    if (cache) {
-        return {
-            value: cache.items,
-            expired: cache.date < this._getExpirationDate()
+Items.prototype._getCached = function(userId) {    
+    var items = this;
+    return Q.nsend(this._db, 'get', 'select * from cachedUserItems where id = $id', userId).then(function (cache) {
+        return cache && {
+            items: JSON.parse(cache.items),
+            expired: cache.date < items._getExpirationDate()
         };
-    }
+    });
 };
 
 Items.prototype._logUserCacheStatus = function (userId, cache) {
