@@ -29,7 +29,7 @@
         "strict": [2, "global"],
         "curly": 0,
         "eqeqeq": 0,
-        "no-use-before-define": [2, "nofunc"],
+        "no-use-before-define": 0,
         "no-new": 0,
         "no-path-concat": 0
     }

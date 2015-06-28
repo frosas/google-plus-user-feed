@@ -7,13 +7,22 @@ var sqlite = require('sqlite3');
 var Items = module.exports = function(params) {
     var items = this;
     this._googlePlus = params.googlePlus;
-    return Q.Promise(function (resolve, reject) {
-        items._db = new sqlite.Database(params.path, function (error) {
-            error ? reject(error) : resolve();
-        });
-    }).then(function () {
-        return Q.nsend(items._db, 'run', 'create table cachedUserItems (id varchar(255), items text, date integer)');
-    }).then(function () { return items; });
+    return Q.Promise(
+        function (resolve, reject) {
+            items._db = new sqlite.Database(params.path, function (error) {
+                error ? reject(error) : resolve();
+            });
+        }).
+        then(function () { return items._createTableIfMissing(); }).
+        then(function () { return items; });
+};
+
+Items.prototype._createTableIfMissing = function () {
+    var items = this;
+    return tableExists(this._db, 'cachedUserItems').then(function (exists) {
+        var query = 'create table cachedUserItems (id varchar(255), items text, date integer)';
+        return exists || Q.nsend(items._db, 'run', query);        
+    });
 };
 
 Items.prototype.get = function(userId) {
@@ -82,4 +91,10 @@ Items.prototype._getCacheAgePerUser = function (params) {
     var age = 1 /* day */ * 24 * 60 * 60 * 1000 / dailyRequestsLimitPerUser;
     age /= 1.8; // Is it me or Google allows to do more requests than the stated in the quota?    
     return age;
+};
+
+// From http://stackoverflow.com/questions/1601151/how-do-i-check-in-sqlite-whether-a-table-exists
+var tableExists = function (db, table) {
+    var query = "select name from sqlite_master where type = 'table' and name = $name";
+    return Q.nsend(db, 'get', query, table);
 };
