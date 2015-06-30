@@ -59,7 +59,7 @@ Items.prototype._setCached = function(userId, items) {
  */
 Items.prototype._getCached = function(userId) {    
     var items = this;
-    return Q.nsend(this._db, 'get', 'select * from cachedUserItems where id = $id', userId).then(function (cache) {
+    return Q.nsend(this._db, 'get', 'select * from cachedUserItems where id = $id order by date desc', userId).then(function (cache) {
         return cache && {
             items: JSON.parse(cache.items),
             expired: cache.date < items._getExpirationDate()
