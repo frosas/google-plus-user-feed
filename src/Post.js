@@ -39,7 +39,7 @@ var firstSentence = function(string) {
 
 var attachmentImageHtml = function (attachment) {
     var image = attachment.image || attachment.fullImage;
-    return image ? '<img src="' + image.url + '"  style="max-width: 100%; max-height: 300px">' : '';
+    return image ? '<img class="image" src="' + image.url + '">' : '';
 };
 
 var formatLink = function(attachment) {
