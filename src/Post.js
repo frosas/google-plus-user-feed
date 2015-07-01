@@ -37,6 +37,11 @@ var firstSentence = function(string) {
     return [sentence,addons].join(' ');
 };
 
+var attachmentImageHtml = function (attachment) {
+    var url = attachment.image.url || attachment.fullImage.url;
+    return url ? '<img src="' + url + '" style="width: 100%">' : ' ';
+};
+
 var formatLink = function(attachment) {
     var head = (function() {
         if (attachment.displayName) {
@@ -49,28 +54,8 @@ var formatLink = function(attachment) {
         if (attachment.content) return attachment.content;
         return " ";
     })();
-    var image = (function() {
-        if (attachment.fullImage) return '<img src="' + attachment.fullImage.url + '" width="300" />';
-        else if (attachment.image) return '<img src="' + attachment.image.url + '" width="300" />';
-        return " ";
-    })();
-
-    var link = head + '<p>'+ content + '</p>' + image;
-
-    return link;
-};
-
-var formatPhoto = function(attachment) {
-    var alt = (function() {
-        if (attachment.content) return attachment.content;
-        return "attached image";
-    })();
-    var image = (function() {
-        if (attachment.image) return '<img src="' + attachment.image.url + '" max-height="' + attachment.image.height + 'px" alt="'+ alt + '" />';
-        else if (attachment.fullImage) return '<img src="' + attachment.fullImage.url + '" max-width="100px" max-height="100px" alt="'+ alt + '" />';
-        return " ";
-    })();
-    return image;
+    
+    return head + '<p>' + content + '</p>' + attachmentImageHtml(attachment);
 };
 
 var formatVideo = function(attachment) {
@@ -108,7 +93,7 @@ var body = function(item) {
                 return formatLink(item.object.attachments[0]);
             }
             if (item.object.attachments[0].objectType === 'photo') {
-                return formatPhoto(item.object.attachments[0]);
+                return attachmentImageHtml(item.object.attachments[0]);
             }
             if (item.object.attachments[0].objectType === 'video') {
                 return formatVideo(item.object.attachments[0]);
