@@ -38,8 +38,8 @@ var firstSentence = function(string) {
 };
 
 var attachmentImageHtml = function (attachment) {
-    var url = attachment.image.url || attachment.fullImage.url;
-    return url ? '<img src="' + url + '" style="width: 100%">' : ' ';
+    var image = attachment.image || attachment.fullImage;
+    return image ? '<img src="' + image.url + '"  style="width: 100%">' : '';
 };
 
 var formatLink = function(attachment) {
