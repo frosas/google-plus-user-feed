@@ -21,7 +21,9 @@ Items.prototype._createTableIfMissing = function () {
     var items = this;
     return tableExists(this._db, 'cachedUserItems').then(function (exists) {
         var query = 'create table cachedUserItems (id varchar(255), items text, date integer)';
-        return exists || Q.nsend(items._db, 'run', query);        
+        return exists || Q.nsend(items._db, 'run', query).then(function () {
+            return Q.nsend(items._db, 'run', 'create index id on cachedUserItems (id)');
+        });
     });
 };
 
