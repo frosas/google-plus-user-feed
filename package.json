@@ -9,13 +9,12 @@
   },
   "dependencies": {
     "ejs": "0.8.x",
-    "express": "^4.12.3",
+    "express": "^4.13.1",
     "jsdom": "3.1.x",
-    "lodash": "~2.4.1",
-    "newrelic": "~1.18.3",
+    "newrelic": "^1.21.1",
     "q": "^1.0.1",
-    "request": "2.9.x",
-    "sqlite3": "^3.0.7"
+    "request": "^2.58.0",
+    "sqlite3": "^3.0.9"
   },
   "devDependencies": {
     "eslint": "^0.24.1",
