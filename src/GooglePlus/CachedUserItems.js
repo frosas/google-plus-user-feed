@@ -48,11 +48,16 @@ Items.prototype.get = function(userId) {
     });
 };
 
-Items.prototype._setCached = function(userId, items) {
-    return Q.nsend(this._db, 'run', 'insert into cachedUserItems values ($id, $items, $date)', {
-        $id: userId, 
-        $items: JSON.stringify(items),
-        $date: Date.now()
+Items.prototype._setCached = function(userId, cacheItems) {
+    var items = this;
+    var date = Date.now();
+    var query = 'insert into cachedUserItems values ($id, $items, $date)';
+    var params = {$id: userId, $items: JSON.stringify(cacheItems), $date: date};
+    return Q.nsend(this._db, 'run', query, params).then(function () {
+        // Now is a good moment to delete the previous version. Note we don't have 
+        // to wait for this query to finish.
+        query = 'delete from cachedUserItems where id = $id and date != $date';
+        Q.nsend(items._db, 'run', query, {$id: userId, $date: date}).done();
     });
 };
 
