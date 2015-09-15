@@ -12,7 +12,7 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 
 2014-02-22
 
-- Attachment type is not included in the title by default anymore. Add `?include-attachment-type` 
+- Attachment type is not included in the title by default anymore. Add `?include-attachment-type`
   to the feed URL if you want the previous behaviour.
 
 2013-06-12
@@ -29,6 +29,13 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 ## Testing
 
 - `$ bin/test`
+
+## Internals
+
+```sql
+# Feeds per day (to tweak the cache)
+SELECT date / 86400000 AS day, count(*) FROM cachedUserItems GROUP BY day ORDER BY day;
+```
 
 ## TODO
 

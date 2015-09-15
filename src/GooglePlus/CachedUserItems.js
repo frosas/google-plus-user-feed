@@ -29,7 +29,7 @@ Items.prototype._createTableIfMissing = function () {
 
 Items.prototype.get = function(userId) {
     var items = this;
-    userId = userId.toLowerCase(); // Normalize it    
+    userId = userId.toLowerCase(); // Normalize it
     return this._getCached(userId).then(function (cache) {
         items._logUserCacheStatus(userId, cache);
         if (cache && !cache.expired) return cache.items;
@@ -43,7 +43,7 @@ Items.prototype.get = function(userId) {
                 // Try to use the cached items (even if it has expired) before failing
                 if (!cache) throw error;
                 console.error(error);
-                return cache.items;                
+                return cache.items;
             });
     });
 };
@@ -54,7 +54,7 @@ Items.prototype._setCached = function(userId, cacheItems) {
     var query = 'insert into cachedUserItems values ($id, $items, $date)';
     var params = {$id: userId, $items: JSON.stringify(cacheItems), $date: date};
     return Q.nsend(this._db, 'run', query, params).then(function () {
-        // Now is a good moment to delete the previous version. Note we don't have 
+        // Now is a good moment to delete the previous version. Note we don't have
         // to wait for this query to finish.
         query = 'delete from cachedUserItems where id = $id and date != $date';
         Q.nsend(items._db, 'run', query, {$id: userId, $date: date}).done();
@@ -64,7 +64,7 @@ Items.prototype._setCached = function(userId, cacheItems) {
 /**
  * @returns {Object|null} As {items: Array, expired: boolean}
  */
-Items.prototype._getCached = function(userId) {    
+Items.prototype._getCached = function(userId) {
     var items = this;
     return Q.nsend(this._db, 'get', 'select * from cachedUserItems where id = $id order by date desc', userId).then(function (cache) {
         return cache && {
@@ -83,7 +83,7 @@ Items.prototype._logUserCacheStatus = function (userId, cache) {
 Items.prototype._getCacheStatus = function (cache) {
     if (!cache) return 'Missing';
     if (cache.expired) return 'Expired';
-    return 'Hit';    
+    return 'Hit';
 };
 
 Items.prototype._getExpirationDate = function() {
@@ -93,11 +93,9 @@ Items.prototype._getExpirationDate = function() {
 Items.prototype._getCacheAgePerUser = function (params) {
     params = params || {};
     params.dailyRequestsLimit = params.dailyRequestsLimit || 50000;
-    params.maxDailyUsers = params.maxDailyUsers || (8000 /* current amount */ * 1.1 /* margin */);
+    params.maxDailyUsers = params.maxDailyUsers || 7000; // Current amount
     var dailyRequestsLimitPerUser = params.dailyRequestsLimit / params.maxDailyUsers;
-    var age = 1 /* day */ * 24 * 60 * 60 * 1000 / dailyRequestsLimitPerUser;
-    age /= 1.8; // Is it me or Google allows to do more requests than the stated in the quota?    
-    return age;
+    return 1 /* day */ * 24 * 60 * 60 * 1000 / dailyRequestsLimitPerUser;
 };
 
 // From http://stackoverflow.com/questions/1601151/how-do-i-check-in-sqlite-whether-a-table-exists
