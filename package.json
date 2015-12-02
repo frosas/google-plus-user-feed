@@ -5,7 +5,7 @@
     "start": "node src/server.js"
   },
   "engines": {
-    "node": "0.12.x"
+    "node": "^5.1.0"
   },
   "dependencies": {
     "ejs": "0.8.x",
