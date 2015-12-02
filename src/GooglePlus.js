@@ -21,7 +21,7 @@ Plus.prototype.getUserItems = function(userId) {
 };
 
 Plus.prototype._getUserUrl = function (userId) {
-    return 'https://www.googleapis.com/plus/v1/people/' + userId +
+    return 'https://www.googleapis.com/plus/v1/people/' + encodeURIComponent(userId) +
         '/activities/public?' + querystring.stringify({key: this._apiKey});
 };
 

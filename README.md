@@ -6,6 +6,10 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 
 ## Changelog
 
+2015-12-02
+
+- Fixed a bad encoding of the user ID. User names with accents, or in Chinese, Japanese, Farsi, ... should work as expected now!
+
 2014-10-04
 
 - Posts full body is shown in the feed page
