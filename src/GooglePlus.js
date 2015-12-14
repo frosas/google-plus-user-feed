@@ -3,7 +3,7 @@
 var request = require('request');
 var querystring = require('querystring');
 var errors = require('./errors');
-var Q = require('q');
+const util = require('./util');
 
 var Plus = module.exports = function(apiKey) {
     if (!apiKey) throw new Error('No API key provided');
@@ -11,10 +11,9 @@ var Plus = module.exports = function(apiKey) {
 };
 
 Plus.prototype.getUserItems = function(userId) {
-    var plus = this;
-    return this._request(this._getUserUrl(userId)).then(function (result) {
-        var json = JSON.parse(result.body);
-        var jsonError = plus._getJsonError(json);
+    return util.promisify(request)(this._getUserUrl(userId)).then(response => {
+        var json = JSON.parse(response.body);
+        var jsonError = this._getJsonError(json);
         if (jsonError) throw jsonError;
         return json.items || [];
     });
@@ -35,10 +34,4 @@ Plus.prototype._getJsonError = function (json) {
         }();
         return new ErrorType("[Google+ error] " + json.error.message);
     }
-};
-
-Plus.prototype._request = function (url) {
-    return Q.nfcall(request, url).then(function (result) {
-        return {response: result[0], body: result[1]};
-    });
 };
