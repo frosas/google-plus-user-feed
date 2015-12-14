@@ -12,6 +12,7 @@ util.promisify = function() {
     } else {
         object = arguments[0];
         func = arguments[1];
+        if (typeof func == 'string') func = object[func];
     }
     return function() {
         return new Promise((resolve, reject) => {

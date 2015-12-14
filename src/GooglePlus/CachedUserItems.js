@@ -1,28 +1,25 @@
 'use strict';
 
-var Q = require('q');
 var newrelic = require('newrelic');
 var sqlite = require('sqlite3');
+const util = require('../util');
 
+/**
+ * @return {Promise<Items>}
+ */
 var Items = module.exports = function(params) {
-    var items = this;
     this._googlePlus = params.googlePlus;
-    return Q.Promise(
-        function (resolve, reject) {
-            items._db = new sqlite.Database(params.path, function (error) {
-                error ? reject(error) : resolve();
-            });
-        }).
-        then(function () { return items._createTableIfMissing(); }).
-        then(function () { return items; });
+    return util.promisify(cb => this._db = new sqlite.Database(params.path, cb))().
+        then(() => this._createTableIfMissing()).
+        then(() => this);
 };
 
 Items.prototype._createTableIfMissing = function () {
-    var items = this;
-    return tableExists(this._db, 'cachedUserItems').then(function (exists) {
-        var query = 'create table cachedUserItems (id varchar(255), items text, date integer)';
-        return exists || Q.nsend(items._db, 'run', query).then(function () {
-            return Q.nsend(items._db, 'run', 'create index id on cachedUserItems (id)');
+    return tableExists(this._db, 'cachedUserItems').then(exists => {
+        if (exists) return;
+        const query = 'create table cachedUserItems (id varchar(255), items text, date integer)';
+        return util.promisify(this._db, 'run')(query).then(() => {
+            return util.promisify(this._db, 'run')('create index id on cachedUserItems (id)');
         });
     });
 };
@@ -49,15 +46,15 @@ Items.prototype.get = function(userId) {
 };
 
 Items.prototype._setCached = function(userId, cacheItems) {
-    var items = this;
-    var date = Date.now();
-    var query = 'insert into cachedUserItems values ($id, $items, $date)';
-    var params = {$id: userId, $items: JSON.stringify(cacheItems), $date: date};
-    return Q.nsend(this._db, 'run', query, params).then(function () {
+    const date = Date.now();
+    const query = 'insert into cachedUserItems values ($id, $items, $date)';
+    const params = {$id: userId, $items: JSON.stringify(cacheItems), $date: date};
+    return util.promisify(this._db, 'run')(query, params).then(() => {
         // Now is a good moment to delete the previous version. Note we don't have
         // to wait for this query to finish.
-        query = 'delete from cachedUserItems where id = $id and date != $date';
-        Q.nsend(items._db, 'run', query, {$id: userId, $date: date}).done();
+        let query = 'delete from cachedUserItems where id = $id and date != $date';
+        util.promisify(this._db, 'run')(query, {$id: userId, $date: date}).
+            catch(error => console.log(`[WARN] Couldn't delete expired cache: ${error.stack}`));
     });
 };
 
@@ -65,11 +62,11 @@ Items.prototype._setCached = function(userId, cacheItems) {
  * @returns {Object|null} As {items: Array, expired: boolean}
  */
 Items.prototype._getCached = function(userId) {
-    var items = this;
-    return Q.nsend(this._db, 'get', 'select * from cachedUserItems where id = $id order by date desc', userId).then(function (cache) {
+    const query = 'select * from cachedUserItems where id = $id order by date desc';
+    return util.promisify(this._db, 'get')(query, userId).then(cache => {
         return cache && {
             items: JSON.parse(cache.items),
-            expired: cache.date < items._getExpirationDate()
+            expired: cache.date < this._getExpirationDate()
         };
     });
 };
@@ -99,7 +96,7 @@ Items.prototype._getCacheAgePerUser = function (params) {
 };
 
 // From http://stackoverflow.com/questions/1601151/how-do-i-check-in-sqlite-whether-a-table-exists
-var tableExists = function (db, table) {
-    var query = "select name from sqlite_master where type = 'table' and name = $name";
-    return Q.nsend(db, 'get', query, table);
+const tableExists = (db, table) => {
+    const query = "select name from sqlite_master where type = 'table' and name = ?";
+    return util.promisify(db, 'get')(query, table);
 };
