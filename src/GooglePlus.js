@@ -3,7 +3,7 @@
 var request = require('request');
 var querystring = require('querystring');
 var errors = require('./errors');
-const util = require('./util');
+const promisify = require('potpourri/dist/es5').promisify;
 
 var Plus = module.exports = function(apiKey) {
     if (!apiKey) throw new Error('No API key provided');
@@ -11,7 +11,7 @@ var Plus = module.exports = function(apiKey) {
 };
 
 Plus.prototype.getUserItems = function(userId) {
-    return util.promisify(request)(this._getUserUrl(userId)).then(response => {
+    return promisify(request)(this._getUserUrl(userId)).then(response => {
         var json = JSON.parse(response.body);
         var jsonError = this._getJsonError(json);
         if (jsonError) throw jsonError;
