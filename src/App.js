@@ -28,7 +28,7 @@ module.exports = function(cachedUserItems) {
         };
         cachedUserItems.get(userId)
             .then(function(items) {
-                var posts = items.map(function(item) { return new Post(item, style); });
+                const posts = items.map(item => new Post(item, style));
                 response.header('Content-Type', 'text/xml; charset=utf-8');
                 response.render('feed', {
                     profileUrl: 'https://plus.google.com/' + userId,

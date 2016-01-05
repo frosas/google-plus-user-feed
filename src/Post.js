@@ -159,10 +159,9 @@ var postTitle = function(item, titleStyle, includeAttachmentType) {
     return title;
 };
 
-var attachmentType = function(item) {
-    if (item.object.attachments) {
-        if (item.object.attachments.some(function(a) { return a.objectType === 'article'; })) return 'link';
-        if (item.object.attachments.any(function(a) { return a.objectType === 'photo'; })) return 'photo';
-        if (item.object.attachments.any(function(a) { return a.objectType === 'video'; })) return 'video';
-    }
+const attachmentType = item => {
+    const attachments = item.object.attachments || [];
+    if (attachments.some(a => a.objectType === 'article')) return 'link';
+    if (attachments.some(a => a.objectType === 'photo')) return 'photo';
+    if (attachments.some(a => a.objectType === 'video')) return 'video';
 };
