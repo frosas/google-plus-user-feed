@@ -25,22 +25,23 @@ Items.prototype._createTableIfMissing = function () {
 };
 
 Items.prototype.get = function(userId) {
-    var items = this;
     userId = userId.toLowerCase(); // Normalize it
-    return this._getCached(userId).then(function (cache) {
-        items._logUserCacheStatus(userId, cache);
+    return this._getCached(userId).then(cache => {
+        this._logUserCacheStatus(userId, cache);
+        
+        // If items are cached and fresh, use them.
         if (cache && !cache.expired) return cache.items;
-        return items._googlePlus.getUserItems(userId).
-            then(function (userItems) {
-                return items._setCached(userId, userItems).then(function () {
-                    return userItems;
-                });
-            }).
-            catch(function (error) {
-                // Try to use the cached items (even if it has expired) before failing
-                if (!cache) throw error;
-                console.error(error);
-                return cache.items;
+        
+        return this._googlePlus.getUserItems(userId).
+            then(userItems => this._setCached(userId, userItems).then(() => userItems)).
+            catch(error => {
+                if (cache) {
+                    // Use the cached items (even if they have expired) instead of
+                    // failing
+                    console.error(error);
+                    return cache.items;
+                }
+                throw error;
             });
     });
 };
