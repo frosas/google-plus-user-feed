@@ -47,6 +47,4 @@ SELECT date / 86400000 AS day, count(*) FROM cachedUserItems GROUP BY day ORDER 
 - Mark visited links
 - Anything to learn from https://github.com/jtwebman/GooglePlusToRSSFeed?
 - Allow users to use their own API key, and disable any caching if they do.
-- Store cache in a datastore
-- node 0.10 → 0.12
 - Expand images
