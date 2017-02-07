@@ -1,0 +1,12 @@
+service: service
+provider:
+  name: aws
+  runtime: nodejs4.3
+  profile: serverless
+functions:
+  test:
+    handler: src/serverless-handler.test
+    events:
+      - http:
+          path: test
+          method: get
