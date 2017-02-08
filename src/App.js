@@ -3,7 +3,7 @@
 var express = require('express');
 var errors = require('./errors');
 var Post = require('./Post');
-var newrelic = require('newrelic');
+// var newrelic = require('newrelic');
 
 module.exports = function(cachedUserItems) {
     var app = express();
@@ -35,7 +35,7 @@ module.exports = function(cachedUserItems) {
                     posts: posts
                 });
                                 
-                newrelic.recordCustomEvent('User Feed', {ID: userId});
+                // newrelic.recordCustomEvent('User Feed', {ID: userId});
             })
             .catch(next);
     });

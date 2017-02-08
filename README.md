@@ -50,3 +50,9 @@ SELECT date / 86400000 AS day, count(*) FROM cachedUserItems GROUP BY day ORDER 
 - Store cache in a datastore
 - node 0.10 → 0.12
 - Expand images
+- Go serverless
+  - Fix caching
+  - Fix New Relic
+  - Load resources relatively
+  - Enable custom domain
+    - Obtain an SSL certificate

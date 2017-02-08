@@ -1,6 +1,6 @@
 'use strict';
 
-var newrelic = require('newrelic');
+// var newrelic = require('newrelic');
 var sqlite = require('sqlite3');
 const promisify = require('potpourri/dist/es5').promisify;
 
@@ -75,7 +75,7 @@ Items.prototype._getCached = function(userId) {
 Items.prototype._logUserCacheStatus = function (userId, cache) {
     var status = {ID: userId, Status: this._getCacheStatus(cache)};
     console.log(JSON.stringify(status));
-    newrelic.recordCustomEvent('User Feed Cache', status);
+    // newrelic.recordCustomEvent('User Feed Cache', status);
 };
 
 Items.prototype._getCacheStatus = function (cache) {

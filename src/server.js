@@ -1,13 +1,7 @@
 'use strict';
 
-require('newrelic');
+require('./init');
 
-const App = require('./App');
-const GooglePlus = require('./GooglePlus');
-const CachedUserItems = require('./GooglePlus/CachedUserItems');
-    
-process.on('unhandledRejection', error => { throw error; });
+const appBuilder = require('./express-app-builder');
 
-const googlePlus = new GooglePlus(process.env.GOOGLE_API_KEY);
-new CachedUserItems({googlePlus: googlePlus, path: 'persistent/main.db'}).
-    then(items => new App(items).listen(process.env.PORT || 8080));
+appBuilder.build().then(app => app.listen(process.env.PORT || 8080));

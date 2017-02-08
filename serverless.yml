@@ -1,12 +1,23 @@
-service: service
+service: plusfeed
 provider:
   name: aws
   runtime: nodejs4.3
   profile: serverless
+  stackTags:
+    app: plusfeed
 functions:
   test:
-    handler: src/serverless-handler.test
+    handler: src/serverless-handlers/test.handler
     events:
       - http:
-          path: test
+          path: /test
+          method: get
+  express:
+    handler: src/serverless-handlers/express.handler
+    environment:
+      GOOGLE_API_KEY: ${env:GOOGLE_API_KEY}
+      NEW_RELIC_LICENSE_KEY: ${env:NEW_RELIC_LICENSE_KEY}
+    events:
+      - http:
+          path: /{path}
           method: get
