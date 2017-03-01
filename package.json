@@ -8,17 +8,17 @@
     "node": "^5.1.0"
   },
   "dependencies": {
-    "ejs": "0.8.x",
+    "ejs": "~2.5.6",
     "express": "^4.13.3",
     "jsdom": "^9.10.0",
     "newrelic": "^1.22.0",
-    "potpourri": "0.0.1",
+    "potpourri": "0.0.2",
     "request": "^2.61.0",
     "sqlite3": "^3.0.10"
   },
   "devDependencies": {
-    "eslint": "^0.24.1",
-    "mocha": "~1.20.1",
-    "nodemon": "~1.4.1"
+    "eslint": "^3.16.1",
+    "mocha": "~3.2.0",
+    "nodemon": "~1.11.0"
   }
 }
