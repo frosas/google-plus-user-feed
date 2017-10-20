@@ -15,7 +15,7 @@ describe("CachedUserItems", function () {
             var cachedUserItems = new CachedUserItems({});
             var age = cachedUserItems._getFeedCacheAge({
                 dailyRequestsLimit: 50000,
-                maxDailyUsers: 8000
+                maxDailyFeeds: 8000
             });
             assertEqualsToDecimals(age, 3.84 /* hours */ * 60 * 60 * 1000, 2 /* decimals */);
         });
@@ -24,7 +24,7 @@ describe("CachedUserItems", function () {
             var cachedUserItems = new CachedUserItems({});
             var age = cachedUserItems._getFeedCacheAge({
                 dailyRequestsLimit: 50000,
-                maxDailyUsers: 1
+                maxDailyFeeds: 1
             });
             assertEqualsToDecimals(age, 1.728 /* secs */ * 1000, 2 /* decimals */);
         });
