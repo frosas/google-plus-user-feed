@@ -16,7 +16,7 @@
     "sqlite3": "^3.0.10"
   },
   "devDependencies": {
-    "eslint": "^0.24.1",
+    "eslint": "^4.9.0",
     "mocha": "^4.0.1",
     "nodemon": "^1.12.1"
   }

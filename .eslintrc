@@ -1,6 +1,7 @@
 // See http://eslint.org/docs/
 {
     "env": {"node": true, "es6": true},
+    "parserOptions": {"ecmaVersion": 2017},
     "rules": {
         "no-script-url": 0,
         "no-shadow": 0,
