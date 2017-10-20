@@ -15,13 +15,14 @@ Items.prototype.get = function(userId) {
         
         // If items are cached and fresh, use them.
         if (cache && !cache.expired) return cache.items;
-        
+       
         return this._googlePlus.getUserItems(userId).
             then(userItems => this._setCached(userId, userItems).then(() => userItems)).
             catch(error => {
                 if (cache) {
                     // Use the cached items (even if they have expired) instead of
                     // failing
+                    // eslint-disable-next-line no-console
                     console.error(error);
                     return cache.items;
                 }
@@ -39,6 +40,7 @@ Items.prototype._setCached = function(userId, cacheItems) {
         // to wait for this query to finish.
         let query = 'delete from cachedUserItems where id = $id and date != $date';
         promisify(this._db, 'run')(query, {$id: userId, $date: date}).
+            // eslint-disable-next-line no-console
             catch(error => console.log(`[WARN] Couldn't delete expired cache: ${error.stack}`));
     });
 };
@@ -58,6 +60,7 @@ Items.prototype._getCached = function(userId) {
 
 Items.prototype._logUserCacheStatus = function (userId, cache) {
     var status = {ID: userId, Status: this._getCacheStatus(cache)};
+    // eslint-disable-next-line no-console
     console.log(JSON.stringify(status));
     newrelic.recordCustomEvent('User Feed Cache', status);
 };

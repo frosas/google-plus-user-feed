@@ -60,6 +60,7 @@ module.exports = function(cachedUserItems) {
             response.send(error.publicMessage || "Internal Error");
             
             newrelic.noticeError(error);
+            // eslint-disable-next-line no-console
             console.error(errors.stringify(error));
         }
         next();

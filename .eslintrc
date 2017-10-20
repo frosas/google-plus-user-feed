@@ -1,37 +1,5 @@
-// See http://eslint.org/docs/
 {
     "env": {"node": true, "es6": true},
     "parserOptions": {"ecmaVersion": 2017},
-    "rules": {
-        "no-script-url": 0,
-        "no-shadow": 0,
-        "consistent-return": 0,
-        "no-console": 0,
-        "no-alert": 0,
-        "dot-notation": 0,
-        "indent": 2, // 4 spaces
-        
-        // Don't be too picky about the style
-        "no-trailing-spaces": 0,
-        "quotes": 0,
-        "no-underscore-dangle": 0,
-        "eol-last": 0,
-        "new-parens": 0,
-        "key-spacing": 0,
-        "camelcase": 0,
-        "space-infix-ops": 0,
-        "no-multi-spaces": 0,
-        "comma-spacing": 0,
-        "yoda": 0,
-        "no-unused-expressions": 0,
-        "new-cap": 0,
-        
-        // Re-consider later
-        "strict": [2, "global"],
-        "curly": 0,
-        "eqeqeq": 0,
-        "no-use-before-define": 0,
-        "no-new": 0,
-        "no-path-concat": 0
-    }
+    "extends": ["eslint:recommended"]
 }
