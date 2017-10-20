@@ -2,6 +2,10 @@
 
 var newrelic = require('newrelic');
 
+const GOOGLE_PLUS_DAILY_REQUESTS_LIMIT = 50000;
+
+const EXPECTED_DAILY_UNIQUE_REQUESTED_FEEDS = 10857 + 7894;
+
 var Items = module.exports = function({googlePlus, repository}) {
     this._googlePlus = googlePlus;
     this._repository = repository;
@@ -45,8 +49,8 @@ Items.prototype._getExpirationDate = function() {
 };
 
 Items.prototype._getFeedCacheAge = function ({dailyRequestsLimit, maxDailyFeeds} = {}) {
-    dailyRequestsLimit = dailyRequestsLimit || 50000;
-    maxDailyFeeds = maxDailyFeeds || 10857 + 7894; // Current amount
+    dailyRequestsLimit = dailyRequestsLimit || GOOGLE_PLUS_DAILY_REQUESTS_LIMIT;
+    maxDailyFeeds = maxDailyFeeds || EXPECTED_DAILY_UNIQUE_REQUESTED_FEEDS;
     var dailyRequestsLimitPerUser = dailyRequestsLimit / maxDailyFeeds;
     return 1 /* day */ * 24 * 60 * 60 * 1000 / dailyRequestsLimitPerUser;
 };
