@@ -59,6 +59,6 @@ Items.prototype._getExpirationDate = function() {
 Items.prototype._getFeedCacheAge = function ({dailyRequestsLimit, maxDailyFeeds} = {}) {
     dailyRequestsLimit = dailyRequestsLimit || GOOGLE_PLUS_DAILY_REQUESTS_LIMIT;
     maxDailyFeeds = maxDailyFeeds || EXPECTED_DAILY_UNIQUE_REQUESTED_FEEDS;
-    var dailyRequestsLimitPerUser = dailyRequestsLimit / maxDailyFeeds;
-    return 1 /* day */ * 24 * 60 * 60 * 1000 / dailyRequestsLimitPerUser;
+    const dailyRequestsLimitPerFeed = dailyRequestsLimit / maxDailyFeeds;
+    return 1 /* day */ * 24 * 60 * 60 * 1000 / dailyRequestsLimitPerFeed;
 };
