@@ -5,7 +5,7 @@ var errors = require('./errors');
 var Post = require('./Post');
 var newrelic = require('newrelic');
 
-module.exports = function(cachedUserItems) {
+module.exports = function(feeds) {
     var app = express();
     app.set('views', 'views');
     app.set('view engine', 'ejs');
@@ -26,7 +26,7 @@ module.exports = function(cachedUserItems) {
             title: request.query.title,
             includeAttachmentType: 'include-attachment-type' in request.query
         };
-        cachedUserItems.get(userId)
+        feeds.get(userId)
             .then(function(items) {
                 const posts = items.map(item => new Post(item, style));
                 response.header('Content-Type', 'text/xml; charset=utf-8');
