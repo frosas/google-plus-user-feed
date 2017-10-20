@@ -10,11 +10,11 @@ var assertEqualsToDecimals = function(current, expected, decimals) {
 };
 
 describe("CachedUserItems", function () {
-    describe("_getCacheAgePerUser", function () {
+    describe("_getFeedCacheAge", function () {
         it("is ~3.84 hours for current values", function () {
             var googlePlus = {}; // TODO Don't stub
             var cachedUserItems = new CachedUserItems(googlePlus); // TODO Avoid this dependency
-            var age = cachedUserItems._getCacheAgePerUser({
+            var age = cachedUserItems._getFeedCacheAge({
                 dailyRequestsLimit: 50000,
                 maxDailyUsers: 8000
             });
@@ -24,7 +24,7 @@ describe("CachedUserItems", function () {
         it("is xxx for a single user", function() {
             var googlePlus = {}; // TODO Don't stub
             var cachedUserItems = new CachedUserItems(googlePlus); // TODO Avoid this dependency
-            var age = cachedUserItems._getCacheAgePerUser({
+            var age = cachedUserItems._getFeedCacheAge({
                 dailyRequestsLimit: 50000,
                 maxDailyUsers: 1
             });

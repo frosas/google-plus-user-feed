@@ -85,10 +85,10 @@ Items.prototype._getCacheStatus = function (cache) {
 };
 
 Items.prototype._getExpirationDate = function() {
-    return new Date(Date.now() - this._getCacheAgePerUser());
+    return new Date(Date.now() - this._getFeedCacheAge());
 };
 
-Items.prototype._getCacheAgePerUser = function (params) {
+Items.prototype._getFeedCacheAge = function (params) {
     params = params || {};
     params.dailyRequestsLimit = params.dailyRequestsLimit || 50000;
     params.maxDailyUsers = params.maxDailyUsers || 9000; // Current amount
