@@ -4,7 +4,15 @@ var newrelic = require('newrelic');
 
 const GOOGLE_PLUS_DAILY_REQUESTS_LIMIT = 50000;
 
-const EXPECTED_DAILY_UNIQUE_REQUESTED_FEEDS = 10857 + 7894;
+/**
+ * The amount of distinct feeds expected to be requested every day.
+ * 
+ * An approximation can be obtained by calculating the amount of feeds that were
+ * cached in the last 24 hours:
+ * 
+ *   select distinct count(id) from cachedUserItems where date > strftime('%s', 'now', '-1 day') * 1000;
+ */
+const EXPECTED_DAILY_UNIQUE_REQUESTED_FEEDS = 18502;
 
 var Items = module.exports = function({googlePlus, repository}) {
     this._googlePlus = googlePlus;
