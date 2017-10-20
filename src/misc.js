@@ -8,7 +8,7 @@ exports.cut = function(string, length) {
 };
 
 exports.htmlToPlain = function(html) {
-    var document = jsdom.jsdom('<html>' + html + '</html>');
+    var document = new jsdom.JSDOM('<html>' + html + '</html>').window.document;
 
     // Add line breaks for block elements
     ['br', 'div', 'p'].forEach(function(tag) {
