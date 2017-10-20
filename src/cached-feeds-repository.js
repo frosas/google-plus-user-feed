@@ -3,6 +3,8 @@
 const sqlite = require('sqlite3');
 const promisify = require('potpourri/dist/es5').promisify;
 
+const TABLE = 'cachedUserItems'; // TODO Rename it to 'cachedFeeds'
+
 const openDatabase = path => {
     let database;
     return promisify(callback => database = new sqlite.Database(path, callback))()
@@ -16,11 +18,11 @@ const tableExists = (db, table) => {
 };
 
 const createTableIfMissing = db => {
-    return tableExists(db, 'cachedUserItems').then(exists => {
+    return tableExists(db, TABLE).then(exists => {
         if (exists) return;
-        const query = 'create table cachedUserItems (id varchar(255), items text, date integer)';
+        const query = `create table ${TABLE} (id varchar(255), items text, date integer)`;
         return promisify(db, 'run')(query).then(() => {
-            return promisify(db, 'run')('create index id on cachedUserItems (id)');
+            return promisify(db, 'run')(`create index id on ${TABLE} (id)`);
         });
     });
 };
@@ -39,12 +41,12 @@ module.exports = class Repository {
 
     set(feedId, items) {
         const date = Date.now();
-        const query = 'insert into cachedUserItems values ($id, $items, $date)';
+        const query = `insert into ${TABLE} values ($id, $items, $date)`;
         const params = {$id: feedId, $items: JSON.stringify(items), $date: date};
         return promisify(this._database, 'run')(query, params).then(() => {
             // Now is a good moment to delete the previous version. Note we don't have
             // to wait for this query to finish.
-            let query = 'delete from cachedUserItems where id = $id and date != $date';
+            let query = `delete from ${TABLE} where id = $id and date != $date`;
             promisify(this._database, 'run')(query, {$id: feedId, $date: date})
                 // eslint-disable-next-line no-console
                 .catch(error => console.log(`[WARN] Couldn't delete expired cache: ${error.stack}`));
@@ -55,7 +57,7 @@ module.exports = class Repository {
      * @returns {Object|null} As {items: Array, expired: boolean}
      */
     get(userId) {
-        const query = 'select * from cachedUserItems where id = $id order by date desc';
+        const query = `select * from ${TABLE} where id = $id order by date desc`;
         return promisify(this._database, 'get')(query, userId).then(cache => {
             return cache && {items: JSON.parse(cache.items), date: cache.date};
         });
