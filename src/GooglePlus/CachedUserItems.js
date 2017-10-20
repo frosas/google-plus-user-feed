@@ -1,27 +1,11 @@
 'use strict';
 
 var newrelic = require('newrelic');
-var sqlite = require('sqlite3');
 const promisify = require('potpourri/dist/es5').promisify;
 
-/**
- * @return {Promise<Items>}
- */
-var Items = module.exports = function({googlePlus, path}) {
+var Items = module.exports = function({googlePlus, database}) {
     this._googlePlus = googlePlus;
-    return promisify(cb => this._db = new sqlite.Database(path, cb))().
-        then(() => this._createTableIfMissing()).
-        then(() => this);
-};
-
-Items.prototype._createTableIfMissing = function () {
-    return tableExists(this._db, 'cachedUserItems').then(exists => {
-        if (exists) return;
-        const query = 'create table cachedUserItems (id varchar(255), items text, date integer)';
-        return promisify(this._db, 'run')(query).then(() => {
-            return promisify(this._db, 'run')('create index id on cachedUserItems (id)');
-        });
-    });
+    this._db = database;
 };
 
 Items.prototype.get = function(userId) {
@@ -94,10 +78,4 @@ Items.prototype._getFeedCacheAge = function (params) {
     params.maxDailyUsers = params.maxDailyUsers || 9000; // Current amount
     var dailyRequestsLimitPerUser = params.dailyRequestsLimit / params.maxDailyUsers;
     return 1 /* day */ * 24 * 60 * 60 * 1000 / dailyRequestsLimitPerUser;
-};
-
-// From http://stackoverflow.com/questions/1601151/how-do-i-check-in-sqlite-whether-a-table-exists
-const tableExists = (db, table) => {
-    const query = "select name from sqlite_master where type = 'table' and name = ?";
-    return promisify(db, 'get')(query, table);
 };
