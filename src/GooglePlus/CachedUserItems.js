@@ -7,9 +7,9 @@ const promisify = require('potpourri/dist/es5').promisify;
 /**
  * @return {Promise<Items>}
  */
-var Items = module.exports = function(params) {
-    this._googlePlus = params.googlePlus;
-    return promisify(cb => this._db = new sqlite.Database(params.path, cb))().
+var Items = module.exports = function({googlePlus, path}) {
+    this._googlePlus = googlePlus;
+    return promisify(cb => this._db = new sqlite.Database(path, cb))().
         then(() => this._createTableIfMissing()).
         then(() => this);
 };
