@@ -3,9 +3,10 @@
 var newrelic = require('newrelic');
 const promisify = require('potpourri/dist/es5').promisify;
 
-var Items = module.exports = function({googlePlus, database}) {
+var Items = module.exports = function({googlePlus, repository}) {
     this._googlePlus = googlePlus;
-    this._db = database;
+    this._repository = repository;
+    this._db = repository.database;
 };
 
 Items.prototype.get = function(userId) {
@@ -15,33 +16,15 @@ Items.prototype.get = function(userId) {
         
         // If items are cached and fresh, use them.
         if (cache && !cache.expired) return cache.items;
-       
         return this._googlePlus.getUserItems(userId).
-            then(userItems => this._setCached(userId, userItems).then(() => userItems)).
+            then(userItems => this._repository.set(userId, userItems).then(() => userItems)).
             catch(error => {
-                if (cache) {
-                    // Use the cached items (even if they have expired) instead of
-                    // failing
-                    // eslint-disable-next-line no-console
-                    console.error(error);
-                    return cache.items;
-                }
-                throw error;
+                // Try to use the cached items (even if it has expired) before failing
+                if (!cache) throw error;
+                // eslint-disable-next-line no-console
+                console.error(error);
+                return cache.items;
             });
-    });
-};
-
-Items.prototype._setCached = function(userId, cacheItems) {
-    const date = Date.now();
-    const query = 'insert into cachedUserItems values ($id, $items, $date)';
-    const params = {$id: userId, $items: JSON.stringify(cacheItems), $date: date};
-    return promisify(this._db, 'run')(query, params).then(() => {
-        // Now is a good moment to delete the previous version. Note we don't have
-        // to wait for this query to finish.
-        let query = 'delete from cachedUserItems where id = $id and date != $date';
-        promisify(this._db, 'run')(query, {$id: userId, $date: date}).
-            // eslint-disable-next-line no-console
-            catch(error => console.log(`[WARN] Couldn't delete expired cache: ${error.stack}`));
     });
 };
 

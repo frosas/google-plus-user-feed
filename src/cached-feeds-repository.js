@@ -40,4 +40,18 @@ module.exports = class Repository {
     get database() {
         return this._database;
     }
+
+    set(feedId, items) {
+        const date = Date.now();
+        const query = 'insert into cachedUserItems values ($id, $items, $date)';
+        const params = {$id: feedId, $items: JSON.stringify(items), $date: date};
+        return promisify(this._database, 'run')(query, params).then(() => {
+            // Now is a good moment to delete the previous version. Note we don't have
+            // to wait for this query to finish.
+            let query = 'delete from cachedUserItems where id = $id and date != $date';
+            promisify(this._database, 'run')(query, {$id: feedId, $date: date})
+                // eslint-disable-next-line no-console
+                .catch(error => console.log(`[WARN] Couldn't delete expired cache: ${error.stack}`));
+        });    
+    }
 };

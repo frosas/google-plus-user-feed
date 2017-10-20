@@ -12,7 +12,7 @@ process.on('unhandledRejection', error => { throw error; });
 CachedFeedsRepository.create('persistent/main.db').then(repository => {
     const cachedFeeds = new CachedUserItems({
         googlePlus: new GooglePlus(process.env.GOOGLE_API_KEY),
-        database: repository.database
+        repository
     });
     new App(cachedFeeds).listen(process.env.PORT || 8080);
 });
