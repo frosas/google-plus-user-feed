@@ -44,10 +44,9 @@ Items.prototype._getExpirationDate = function() {
     return new Date(Date.now() - this._getFeedCacheAge());
 };
 
-Items.prototype._getFeedCacheAge = function (params) {
-    params = params || {};
-    params.dailyRequestsLimit = params.dailyRequestsLimit || 50000;
-    params.maxDailyFeeds = params.maxDailyFeeds || 10857 + 7894; // Current amount
-    var dailyRequestsLimitPerUser = params.dailyRequestsLimit / params.maxDailyFeeds;
+Items.prototype._getFeedCacheAge = function ({dailyRequestsLimit, maxDailyFeeds} = {}) {
+    dailyRequestsLimit = dailyRequestsLimit || 50000;
+    maxDailyFeeds = maxDailyFeeds || 10857 + 7894; // Current amount
+    var dailyRequestsLimitPerUser = dailyRequestsLimit / maxDailyFeeds;
     return 1 /* day */ * 24 * 60 * 60 * 1000 / dailyRequestsLimitPerUser;
 };
