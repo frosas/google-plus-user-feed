@@ -1,20 +1,19 @@
 'use strict';
 
 var newrelic = require('newrelic');
-const promisify = require('potpourri/dist/es5').promisify;
 
 var Items = module.exports = function({googlePlus, repository}) {
     this._googlePlus = googlePlus;
     this._repository = repository;
-    this._db = repository.database;
 };
 
 Items.prototype.get = function(userId) {
     userId = userId.toLowerCase(); // Normalize it
-    return this._getCached(userId).then(cache => {
+    return this._repository.get(userId).then(cache => {
+        cache = cache && Object.assign({}, cache, {
+            expired: cache.date < this._getExpirationDate()
+        });
         this._logUserCacheStatus(userId, cache);
-        
-        // If items are cached and fresh, use them.
         if (cache && !cache.expired) return cache.items;
         return this._googlePlus.getUserItems(userId).
             then(userItems => this._repository.set(userId, userItems).then(() => userItems)).
@@ -25,19 +24,6 @@ Items.prototype.get = function(userId) {
                 console.error(error);
                 return cache.items;
             });
-    });
-};
-
-/**
- * @returns {Object|null} As {items: Array, expired: boolean}
- */
-Items.prototype._getCached = function(userId) {
-    const query = 'select * from cachedUserItems where id = $id order by date desc';
-    return promisify(this._db, 'get')(query, userId).then(cache => {
-        return cache && {
-            items: JSON.parse(cache.items),
-            expired: cache.date < this._getExpirationDate()
-        };
     });
 };
 

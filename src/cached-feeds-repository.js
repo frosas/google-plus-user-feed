@@ -37,10 +37,6 @@ module.exports = class Repository {
         this._database = database;
     }
 
-    get database() {
-        return this._database;
-    }
-
     set(feedId, items) {
         const date = Date.now();
         const query = 'insert into cachedUserItems values ($id, $items, $date)';
@@ -53,5 +49,15 @@ module.exports = class Repository {
                 // eslint-disable-next-line no-console
                 .catch(error => console.log(`[WARN] Couldn't delete expired cache: ${error.stack}`));
         });    
+    }
+    
+    /**
+     * @returns {Object|null} As {items: Array, expired: boolean}
+     */
+    get(userId) {
+        const query = 'select * from cachedUserItems where id = $id order by date desc';
+        return promisify(this._database, 'get')(query, userId).then(cache => {
+            return cache && {items: JSON.parse(cache.items), date: cache.date};
+        });
     }
 };
