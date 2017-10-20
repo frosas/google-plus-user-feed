@@ -1,6 +1,6 @@
 'use strict';
 
-var CachedUserItems = require('../../src/GooglePlus/CachedUserItems');
+var CachedFeeds = require('../../src/cached-feeds');
 var assert = require('assert');
 
 var assertEqualsToDecimals = function(current, expected, decimals) {
@@ -9,11 +9,10 @@ var assertEqualsToDecimals = function(current, expected, decimals) {
     assert.equal(current, expected);
 };
 
-describe("CachedUserItems", function () {
+describe("CachedFeeds", function () {
     describe("_getFeedCacheAge", function () {
         it("is ~3.84 hours for current values", function () {
-            var cachedUserItems = new CachedUserItems({});
-            var age = cachedUserItems._getFeedCacheAge({
+            var age = new CachedFeeds({})._getFeedCacheAge({
                 dailyRequestsLimit: 50000,
                 maxDailyFeeds: 8000
             });
@@ -21,8 +20,7 @@ describe("CachedUserItems", function () {
         });
 
         it("is xxx for a single user", function() {
-            var cachedUserItems = new CachedUserItems({});
-            var age = cachedUserItems._getFeedCacheAge({
+            var age = new CachedFeeds({})._getFeedCacheAge({
                 dailyRequestsLimit: 50000,
                 maxDailyFeeds: 1
             });
