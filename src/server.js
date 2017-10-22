@@ -1,5 +1,6 @@
 'use strict';
 
+require('dotenv').config();
 require('newrelic');
 
 const App = require('./App');

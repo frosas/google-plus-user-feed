@@ -1,12 +1,16 @@
 {
   "private": true,
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "watch": "nodemon",
+    "test": "mocha tests --recursive",
+    "lint": "eslint ."
   },
   "engines": {
     "node": "^8.7.0"
   },
   "dependencies": {
+    "dotenv": "^4.0.0",
     "ejs": "0.8.x",
     "express": "^4.13.3",
     "jsdom": "^11.3.0",
