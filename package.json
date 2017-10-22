@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "start": "node src/server.js",
-    "watch": "nodemon"
+    "watch": "nodemon",
+    "test": "mocha tests --recursive"
   },
   "engines": {
     "node": "^8.7.0"

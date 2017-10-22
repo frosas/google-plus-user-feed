@@ -33,7 +33,7 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 ## Development
 
 - `$ npm run watch`
-- `$ bin/test`
+- `$ npm test`
 
 ## TODO
 
