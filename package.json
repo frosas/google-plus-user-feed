@@ -3,7 +3,8 @@
   "scripts": {
     "start": "node src/server.js",
     "watch": "nodemon",
-    "test": "mocha tests --recursive"
+    "test": "mocha tests --recursive",
+    "lint": "eslint ."
   },
   "engines": {
     "node": "^8.7.0"

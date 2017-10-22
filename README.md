@@ -34,6 +34,7 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 
 - `$ npm run watch`
 - `$ npm test`
+- `$ npm run lint`
 
 ## TODO
 
