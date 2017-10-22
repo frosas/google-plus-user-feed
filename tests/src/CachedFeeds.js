@@ -1,6 +1,6 @@
 'use strict';
 
-var CachedFeeds = require('../../src/cached-feeds');
+var CachedFeeds = require('../../src/CachedFeeds');
 var assert = require('assert');
 
 var assertEqualsToDecimals = function(current, expected, decimals) {
@@ -9,8 +9,8 @@ var assertEqualsToDecimals = function(current, expected, decimals) {
     assert.equal(current, expected);
 };
 
-describe("CachedFeeds", function () {
-    describe("_getFeedCacheAge", function () {
+describe("src/CachedFeeds", function () {
+    describe("_getFeedCacheAge()", function () {
         it("is ~3.84 hours for current values", function () {
             var age = new CachedFeeds({})._getFeedCacheAge({
                 dailyRequestsLimit: 50000,

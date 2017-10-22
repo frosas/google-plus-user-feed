@@ -4,8 +4,8 @@ require('newrelic');
 
 const App = require('./App');
 const GooglePlus = require('./GooglePlus');
-const CachedFeeds = require('./cached-feeds');
-const CachedFeedsRepository = require('./cached-feeds-repository');
+const CachedFeeds = require('./CachedFeeds');
+const CachedFeedsRepository = require('./cachedFeeds/Repository');
 
 process.on('unhandledRejection', error => { throw error; });
 
