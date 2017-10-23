@@ -3,7 +3,7 @@
   "scripts": {
     "watch": "nodemon",
     "test": "NEW_RELIC_ENABLED=false mocha tests --recursive",
-    "lint": "eslint .",
+    "lint": "eslint . --fix",
     "#": "Following scripts are used by Dokku",
     "install": "npm run lint && npm test",
     "start": "node --perf-basic-prof src/server.js"
@@ -16,12 +16,14 @@
     "ejs": "0.8.x",
     "eslint": "^4.9.0",
     "eslint-config-eslint": "^4.0.0",
+    "eslint-plugin-prettier": "^2.3.1",
     "express": "^4.13.3",
     "jsdom": "^11.3.0",
     "mocha": "^4.0.1",
     "newrelic": "^1.22.0",
     "nodemon": "^1.12.1",
     "potpourri": "0.0.1",
+    "prettier": "^1.7.4",
     "request": "^2.61.0",
     "sqlite3": "^3.0.10"
   }
