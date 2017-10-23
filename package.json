@@ -1,10 +1,12 @@
 {
   "private": true,
   "scripts": {
-    "start": "node --perf-basic-prof src/server.js",
     "watch": "nodemon",
     "test": "NEW_RELIC_ENABLED=false mocha tests --recursive",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "#": "Following scripts are used by Dokku",
+    "install": "npm run lint && npm test",
+    "start": "node --perf-basic-prof src/server.js"
   },
   "engines": {
     "node": "^8.7.0"
@@ -12,17 +14,15 @@
   "dependencies": {
     "dotenv": "^4.0.0",
     "ejs": "0.8.x",
+    "eslint": "^4.9.0",
+    "eslint-config-eslint": "^4.0.0",
     "express": "^4.13.3",
     "jsdom": "^11.3.0",
+    "mocha": "^4.0.1",
     "newrelic": "^1.22.0",
+    "nodemon": "^1.12.1",
     "potpourri": "0.0.1",
     "request": "^2.61.0",
     "sqlite3": "^3.0.10"
-  },
-  "devDependencies": {
-    "eslint": "^4.9.0",
-    "eslint-config-eslint": "^4.0.0",
-    "mocha": "^4.0.1",
-    "nodemon": "^1.12.1"
   }
 }
