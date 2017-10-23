@@ -3,7 +3,7 @@
   "scripts": {
     "start": "node --perf-basic-prof src/server.js",
     "watch": "nodemon",
-    "test": "mocha tests --recursive",
+    "test": "NEW_RELIC_ENABLED=false mocha tests --recursive",
     "lint": "eslint ."
   },
   "engines": {
