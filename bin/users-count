@@ -1,7 +1,0 @@
-#!/bin/bash
-
-IDS_FILE=/tmp/user-ids
-
-bin/user-ids >> $IDS_FILE &
-
-while true; do cat $IDS_FILE | sort -u | wc -l; sleep 5; done
