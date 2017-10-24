@@ -20,7 +20,7 @@
     "express": "^4.13.3",
     "jsdom": "^11.3.0",
     "mocha": "^4.0.1",
-    "newrelic": "^1.22.0",
+    "newrelic": "^2.3.0",
     "nodemon": "^1.12.1",
     "potpourri": "0.0.1",
     "prettier": "^1.7.4",
