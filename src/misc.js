@@ -1,6 +1,6 @@
 "use strict";
 
-var jsdom = require("jsdom");
+const cheerio = require("cheerio");
 
 exports.cut = function(string, length) {
   if (string.length > length) string = string.slice(0, length - 2) + "…";
@@ -8,16 +8,11 @@ exports.cut = function(string, length) {
 };
 
 exports.htmlToPlain = function(html) {
-  var document = new jsdom.JSDOM("<html>" + html + "</html>").window.document;
-
-  // Add line breaks for block elements
-  ["br", "div", "p"].forEach(function(tag) {
-    var elements = document.getElementsByTagName(tag);
-    for (var i = 0; i < elements.length; i++) {
-      var newline = document.createTextNode("\n");
-      elements[i].parentNode.insertBefore(newline, elements[i]);
-    }
-  });
-
-  return document.documentElement.textContent;
+  const $ = cheerio.load(html);
+  $("p,div,br")
+    .before(" ")
+    .after(" ");
+  return $.text()
+    .replace(/\s+/g, " ")
+    .trim();
 };
