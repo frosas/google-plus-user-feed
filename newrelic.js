@@ -1,5 +1,3 @@
-"use strict";
-
 /**
  * New Relic agent configuration.
  *
@@ -7,7 +5,6 @@
  */
 exports.config = {
   app_name: ["Google+ User Feed"],
-  capture_params: true,
   logging: { level: "info" },
   ignore_status_codes: [
     400,
