@@ -23,12 +23,19 @@ Use it and get more information at **http://plusfeed.frosas.net/**
 
 - Added posts content (thanks to [John Metta](https://github.com/johnmetta))
 
-## Installation details
+## Setup
 
-- Get [Node.js](http://nodejs.org/)
-- `$ npm install`
-- `$ GOOGLE_API_KEY=xxx node src/server.js` (see [Google API key](https://developers.google.com/+/api/oauth))
-- Visit [http://localhost:8080/](http://localhost:8080/)
+Install [Node](http://nodejs.org/).
+
+Create a [Google API key](https://developers.google.com/+/api/oauth).
+
+```bash
+$ echo "GOOGLE_API_KEY=xxx" > .env
+$ npm i
+$ npm start
+```
+
+Visit [http://localhost:8080](http://localhost:8080)
 
 ## Development
 
