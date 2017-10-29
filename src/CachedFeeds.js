@@ -7,12 +7,12 @@ const GOOGLE_PLUS_DAILY_REQUESTS_LIMIT = 50000;
 /**
  * The amount of distinct feeds expected to be requested every day.
  * 
- * An approximation can be obtained by calculating the amount of feeds that were
- * cached in the last 24 hours:
+ * An approximation can be obtained by calculating the amount of unique feeds 
+ * requested on the previous day:
  * 
- *   select distinct count(id) from cachedUserItems where date > strftime('%s', 'now', '-1 day') * 1000;
+ *   $ cat /var/log/nginx/plusfeed-access.log.1 | awk '{ print $7 }' | sort -u | wc -l
  */
-const EXPECTED_DAILY_UNIQUE_REQUESTED_FEEDS = 18502;
+const EXPECTED_DAILY_UNIQUE_REQUESTED_FEEDS = 21164;
 
 var Items = (module.exports = function({ googlePlus, repository }) {
   this._googlePlus = googlePlus;
