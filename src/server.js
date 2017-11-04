@@ -5,7 +5,7 @@ require("newrelic");
 
 const App = require("./App");
 const GooglePlus = require("./GooglePlus");
-const CachedFeeds = require("./CachedFeeds");
+const Feeds = require("./Feeds");
 const CachedFeedsRepository = require("./cachedFeeds/Repository");
 
 process.on("unhandledRejection", error => {
@@ -14,6 +14,6 @@ process.on("unhandledRejection", error => {
 
 CachedFeedsRepository.create("persistent/main.db").then(repository => {
   const googlePlus = new GooglePlus(process.env.GOOGLE_API_KEY);
-  const feeds = new CachedFeeds({ googlePlus, repository });
+  const feeds = new Feeds({ googlePlus, repository });
   new App(feeds).listen(process.env.PORT || 8080);
 });

@@ -1,18 +1,16 @@
-"use strict";
+const Feeds = require("../../src/Feeds");
+const assert = require("assert");
 
-var CachedFeeds = require("../../src/CachedFeeds");
-var assert = require("assert");
-
-var assertEqualsToDecimals = function(current, expected, decimals) {
+const assertEqualsToDecimals = function(current, expected, decimals) {
   current = Math.round(current * Math.pow(10, decimals));
   expected = Math.round(expected * Math.pow(10, decimals));
   assert.equal(current, expected);
 };
 
-describe("src/CachedFeeds", function() {
+describe("src/Feeds", function() {
   describe("_getFeedCacheAge()", function() {
     it("is ~3.84 hours for current values", function() {
-      var age = new CachedFeeds({})._getFeedCacheAge({
+      var age = new Feeds({})._getFeedCacheAge({
         dailyRequestsLimit: 50000,
         maxDailyFeeds: 8000
       });
@@ -24,7 +22,7 @@ describe("src/CachedFeeds", function() {
     });
 
     it("is xxx for a single user", function() {
-      var age = new CachedFeeds({})._getFeedCacheAge({
+      var age = new Feeds({})._getFeedCacheAge({
         dailyRequestsLimit: 50000,
         maxDailyFeeds: 1
       });
