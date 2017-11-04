@@ -14,58 +14,58 @@ const GOOGLE_PLUS_DAILY_REQUESTS_LIMIT = 50000;
  */
 const EXPECTED_DAILY_UNIQUE_REQUESTED_FEEDS = 21164;
 
-var Items = (module.exports = function({ googlePlus, repository }) {
-  this._googlePlus = googlePlus;
-  this._repository = repository;
-});
+module.exports = class Items {
+  constructor({ googlePlus, repository }) {
+    this._googlePlus = googlePlus;
+    this._repository = repository;
+  }
 
-Items.prototype.get = function(userId) {
-  userId = userId.toLowerCase(); // Normalize it
-  return this._repository.get(userId).then(cache => {
-    cache =
-      cache &&
-      Object.assign({}, cache, {
-        expired: cache.date < this._getExpirationDate()
-      });
-    this._logUserCacheStatus(userId, cache);
-    if (cache && !cache.expired) return cache.items;
-    return this._googlePlus
-      .getUserItems(userId)
-      .then(userItems =>
-        this._repository.set(userId, userItems).then(() => userItems)
-      )
-      .catch(error => {
-        // Try to use the cached items (even if it has expired) before failing
-        if (!cache) throw error;
-        // eslint-disable-next-line no-console
-        console.error(error);
-        return cache.items;
-      });
-  });
-};
+  get(userId) {
+    userId = userId.toLowerCase(); // Normalize it
+    return this._repository.get(userId).then(cache => {
+      cache =
+        cache &&
+        Object.assign({}, cache, {
+          expired: cache.date < this._getExpirationDate()
+        });
+      this._logUserCacheStatus(userId, cache);
+      if (cache && !cache.expired) return cache.items;
+      return this._googlePlus
+        .getUserItems(userId)
+        .then(userItems =>
+          this._repository.set(userId, userItems).then(() => userItems)
+        )
+        .catch(error => {
+          // Try to use the cached items (even if it has expired) before failing
+          if (!cache) throw error;
+          // eslint-disable-next-line no-console
+          console.error(error);
+          return cache.items;
+        });
+    });
+  }
 
-Items.prototype._logUserCacheStatus = function(userId, cache) {
-  var status = { ID: userId, Status: this._getCacheStatus(cache) };
-  // eslint-disable-next-line no-console
-  console.log(JSON.stringify(status));
-  newrelic.recordCustomEvent("User Feed Cache", status);
-};
+  _logUserCacheStatus(userId, cache) {
+    var status = { ID: userId, Status: this._getCacheStatus(cache) };
+    // eslint-disable-next-line no-console
+    console.log(JSON.stringify(status));
+    newrelic.recordCustomEvent("User Feed Cache", status);
+  }
 
-Items.prototype._getCacheStatus = function(cache) {
-  if (!cache) return "Missing";
-  if (cache.expired) return "Expired";
-  return "Hit";
-};
+  _getCacheStatus(cache) {
+    if (!cache) return "Missing";
+    if (cache.expired) return "Expired";
+    return "Hit";
+  }
 
-Items.prototype._getExpirationDate = function() {
-  return new Date(Date.now() - this._getFeedCacheAge());
-};
+  _getExpirationDate() {
+    return new Date(Date.now() - this._getFeedCacheAge());
+  }
 
-Items.prototype._getFeedCacheAge = function(
-  { dailyRequestsLimit, maxDailyFeeds } = {}
-) {
-  dailyRequestsLimit = dailyRequestsLimit || GOOGLE_PLUS_DAILY_REQUESTS_LIMIT;
-  maxDailyFeeds = maxDailyFeeds || EXPECTED_DAILY_UNIQUE_REQUESTED_FEEDS;
-  const dailyRequestsLimitPerFeed = dailyRequestsLimit / maxDailyFeeds;
-  return 1 /* day */ * 24 * 60 * 60 * 1000 / dailyRequestsLimitPerFeed;
+  _getFeedCacheAge({ dailyRequestsLimit, maxDailyFeeds } = {}) {
+    dailyRequestsLimit = dailyRequestsLimit || GOOGLE_PLUS_DAILY_REQUESTS_LIMIT;
+    maxDailyFeeds = maxDailyFeeds || EXPECTED_DAILY_UNIQUE_REQUESTED_FEEDS;
+    const dailyRequestsLimitPerFeed = dailyRequestsLimit / maxDailyFeeds;
+    return 1 /* day */ * 24 * 60 * 60 * 1000 / dailyRequestsLimitPerFeed;
+  }
 };
