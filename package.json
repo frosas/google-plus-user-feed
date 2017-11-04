@@ -6,7 +6,7 @@
     "lint": "eslint . --fix",
     "#": "Following scripts are used by Dokku",
     "install": "npm run lint && npm test",
-    "start": "node --perf-basic-prof src/server.js"
+    "start": "node src/server.js"
   },
   "engines": {
     "node": "^8.7.0"
