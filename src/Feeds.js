@@ -15,14 +15,14 @@ const GOOGLE_PLUS_DAILY_REQUESTS_LIMIT = 50000;
 const EXPECTED_DAILY_UNIQUE_REQUESTED_FEEDS = 21164;
 
 module.exports = class Items {
-  constructor({ googlePlus, repository }) {
+  constructor({ googlePlus, cache }) {
     this._googlePlus = googlePlus;
-    this._repository = repository;
+    this._cache = cache;
   }
 
   get(userId) {
     userId = userId.toLowerCase(); // Normalize it
-    return this._repository.get(userId).then(cache => {
+    return this._cache.get(userId).then(cache => {
       cache =
         cache &&
         Object.assign({}, cache, {
@@ -33,7 +33,7 @@ module.exports = class Items {
       return this._googlePlus
         .getUserItems(userId)
         .then(userItems =>
-          this._repository.set(userId, userItems).then(() => userItems)
+          this._cache.set(userId, userItems).then(() => userItems)
         )
         .catch(error => {
           // Try to use the cached items (even if it has expired) before failing
