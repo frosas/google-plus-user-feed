@@ -14,7 +14,7 @@
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
     "dotenv": "^4.0.0",
-    "ejs": "0.8.x",
+    "ejs": "^2.5.7",
     "eslint": "^4.9.0",
     "eslint-config-eslint": "^4.0.0",
     "eslint-plugin-prettier": "^2.3.1",
