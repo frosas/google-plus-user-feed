@@ -1,7 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "watch": "nodemon",
+    "watch": "concurrently --kill-others --names web-server,test,lint \"npm run watch-web-server\" \"npm run watch-test\" \"npm run watch-lint\"",
+    "watch-web-server": "nodemon -q",
+    "watch-test": "npm run test -- --watch",
+    "watch-lint": "nodemon -q -x \"npm run lint\"",
     "test": "NEW_RELIC_ENABLED=false mocha tests --recursive",
     "lint": "eslint . --fix",
     "#": "Following scripts are used by Dokku",
@@ -13,6 +16,7 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
+    "concurrently": "^3.5.1",
     "dotenv": "^4.0.0",
     "ejs": "^2.5.7",
     "eslint": "^4.9.0",

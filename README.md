@@ -21,8 +21,6 @@ Visit [http://localhost:8080](http://localhost:8080)
 ## Development
 
 - `$ npm run watch`
-- `$ npm test -- -w`
-- `$ npm run lint`
 
 ## Changelog
 
