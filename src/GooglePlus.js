@@ -30,12 +30,8 @@ module.exports = class {
 
   _getJsonError(json) {
     if (json.error) {
-      const ErrorType = (() => {
-        if (json.error.code >= 500) return errors.ServerError;
-        if (json.error.code == 404) return errors.NotFoundError;
-        if (json.error.code >= 400) return errors.UserError;
-        return Error;
-      })();
+      const ErrorType =
+        json.error.code == 404 ? errors.NotFoundError : errors.ServerError;
       return new ErrorType(`Google+ error\n${inspect(json.error)}`);
     }
   }
