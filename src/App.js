@@ -48,16 +48,13 @@ module.exports = class {
     app.use((error, request, response, next) => {
       response.header("Content-Type", "text/plain; charset=utf-8");
       response.status(this._getErrorStatus(error));
+      response.send(this._getErrorMessage(error));
       if (error instanceof errors.UserError) {
-        const message =
-          error instanceof errors.NotFoundError ? "Not Found" : "User Error";
-        response.send(message);
         if (!(error instanceof errors.NotFoundError)) {
           // eslint-disable-next-line no-console
           console.error(errors.stringify(error));
         }
       } else {
-        response.send(error.publicMessage || "Internal Error");
         // eslint-disable-next-line no-console
         console.error(errors.stringify(error));
       }
@@ -71,5 +68,11 @@ module.exports = class {
     if (error instanceof errors.NotFoundError) return 404;
     if (error instanceof errors.UserError) return 400;
     return 500;
+  }
+
+  _getErrorMessage(error) {
+    if (error instanceof errors.NotFoundError) return "Not Found";
+    if (error instanceof errors.UserError) return "User Error";
+    return error.publicMessage || "Internal Error";
   }
 };
