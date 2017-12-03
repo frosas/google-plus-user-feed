@@ -56,6 +56,10 @@ module.exports = function(feeds) {
     if (error instanceof errors.UserError) {
       response.status(error instanceof errors.NotFoundError ? 404 : 400);
       response.send(error.message);
+      if (!(error instanceof errors.NotFoundError)) {
+        // eslint-disable-next-line no-console
+        console.error(errors.stringify(error));
+      }
     } else {
       response.status(500);
       response.send(error.publicMessage || "Internal Error");
