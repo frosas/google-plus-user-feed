@@ -44,9 +44,8 @@ exports.NotFoundError = createError({
  */
 exports.ServerError = createError({
   name: "ServerError",
-  constructor: function(message, publicMessage) {
+  constructor: function(message) {
     this.message = message || "Internal Error";
-    this.publicMessage = publicMessage;
   }
 });
 

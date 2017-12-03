@@ -65,7 +65,7 @@ module.exports = class {
   _getErrorMessage(error) {
     if (error instanceof errors.NotFoundError) return "Not Found";
     if (error instanceof errors.UserError) return "User Error";
-    return error.publicMessage || "Internal Error";
+    return "Internal Error";
   }
 
   _logError(error) {
