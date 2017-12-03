@@ -51,8 +51,12 @@ module.exports = function(feeds) {
   app.use(function(error, request, response, next) {
     response.header("Content-Type", "text/plain; charset=utf-8");
     if (error instanceof errors.UserError) {
-      response.status(error instanceof errors.NotFoundError ? 404 : 400);
-      response.send(error.message);
+      const [status, message] =
+        error instanceof errors.NotFoundError
+          ? [404, "Not Found"]
+          : [400, "User Error"];
+      response.status(status);
+      response.send(message);
       if (!(error instanceof errors.NotFoundError)) {
         // eslint-disable-next-line no-console
         console.error(errors.stringify(error));
