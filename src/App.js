@@ -3,7 +3,6 @@
 var express = require("express");
 var errors = require("./errors");
 var Post = require("./Post");
-var newrelic = require("newrelic");
 
 module.exports = function(feeds) {
   var app = express();
@@ -35,8 +34,6 @@ module.exports = function(feeds) {
           profileUrl: "https://plus.google.com/" + userId,
           posts: posts
         });
-
-        newrelic.recordCustomEvent("User Feed", { ID: userId });
       })
       .catch(next);
   });
@@ -63,8 +60,6 @@ module.exports = function(feeds) {
     } else {
       response.status(500);
       response.send(error.publicMessage || "Internal Error");
-
-      newrelic.noticeError(error);
       // eslint-disable-next-line no-console
       console.error(errors.stringify(error));
     }

@@ -1,7 +1,5 @@
 "use strict";
 
-var newrelic = require("newrelic");
-
 const GOOGLE_PLUS_DAILY_REQUESTS_LIMIT = 50000;
 
 /**
@@ -49,7 +47,6 @@ module.exports = class Items {
     var status = { ID: userId, Status: this._getCacheStatus(cache) };
     // eslint-disable-next-line no-console
     console.log(JSON.stringify(status));
-    newrelic.recordCustomEvent("User Feed Cache", status);
   }
 
   _getCacheStatus(cache) {
