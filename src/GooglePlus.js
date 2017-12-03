@@ -2,6 +2,7 @@ const request = require("request");
 const querystring = require("querystring");
 const errors = require("./errors");
 const promisify = require("potpourri/dist/es5").promisify;
+const { inspect } = require("util");
 
 module.exports = class {
   constructor(apiKey) {
@@ -29,13 +30,13 @@ module.exports = class {
 
   _getJsonError(json) {
     if (json.error) {
-      var ErrorType = (function() {
+      const ErrorType = (() => {
         if (json.error.code >= 500) return errors.ServerError;
         if (json.error.code == 404) return errors.NotFoundError;
         if (json.error.code >= 400) return errors.UserError;
         return Error;
       })();
-      return new ErrorType("[Google+ error] " + json.error.message);
+      return new ErrorType(`Google+ error\n${inspect(json.error)}`);
     }
   }
 };
