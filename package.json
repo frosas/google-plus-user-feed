@@ -25,10 +25,10 @@
     "express": "^4.13.3",
     "mocha": "^4.0.1",
     "newrelic": "^2.3.0",
-    "nodemon": "^1.12.1",
+    "nodemon": "^1.18.3",
     "potpourri": "0.0.1",
     "prettier": "^1.7.4",
-    "request": "^2.61.0",
+    "request": "^2.87.0",
     "sqlite3": "^3.0.10"
   }
 }
