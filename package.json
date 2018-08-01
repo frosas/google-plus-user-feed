@@ -24,7 +24,7 @@
     "eslint-plugin-prettier": "^2.3.1",
     "express": "^4.13.3",
     "mocha": "^4.0.1",
-    "newrelic": "^2.3.0",
+    "newrelic": "^4.7.0",
     "nodemon": "^1.18.3",
     "potpourri": "0.0.1",
     "prettier": "^1.7.4",
